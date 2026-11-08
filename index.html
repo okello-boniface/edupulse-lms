@@ -211,19 +211,7 @@
                             <i class="fa-solid fa-comments text-brand-600"></i> Class Discussion
                         </h2>
                         <span
-                            <script>
-  // Automatically update the Live Class banner on student dashboards in real time
-  onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
-    if (!snapshot.empty) {
-      const latestClass = snapshot.docs[0].data();
-      const bannerText = document.querySelector('.bg-indigo-600 p'); 
-      if (bannerText) {
-        bannerText.textContent = `${latestClass.title} is scheduled for ${latestClass.scheduledTime}!`;
-      }
-    }
-  });
-</script>
-<script>
+ <script>                          
   // 1. Sync Active Students Count
   onSnapshot(collection(db, "students"), (snapshot) => {
     const studentCount = snapshot.size;
@@ -264,4 +252,16 @@
     }
   });
 </script>
-                            
+  <script>
+  // Automatically update the Live Class banner on student dashboards in real time
+  onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
+    if (!snapshot.empty) {
+      const latestClass = snapshot.docs[0].data();
+      const bannerText = document.querySelector('.bg-indigo-600 p'); 
+      if (bannerText) {
+        bannerText.textContent = `${latestClass.title} is scheduled for ${latestClass.scheduledTime}!`;
+      }
+    }
+  });
+</script>
+<script>                           
