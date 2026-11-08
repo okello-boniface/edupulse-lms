@@ -251,6 +251,27 @@
     }
   });
 </script>
+                        // Sync and display uploaded files count from Firestore "materials" collection
+onSnapshot(collection(db, "materials"), (snapshot) => {
+  const filesCount = snapshot.size;
+  const filesEl = document.getElementById('stat-uploaded-files');
+  if (filesEl) filesEl.textContent = filesCount;
+});
+
+// Optional: Function to handle adding a new note/file record
+async function uploadCourseNote(title, fileUrl, category) {
+  try {
+    await addDoc(collection(db, "materials"), {
+      title: title,
+      fileUrl: fileUrl,
+      category: category,
+      createdAt: serverTimestamp()
+    });
+    console.log("✅ Note successfully uploaded!");
+  } catch (error) {
+    console.error("❌ Error uploading note: ", error);
+  }
+}                      
                         <script>
   // Automatically update the Live Class banner on student dashboards in real time
   onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
