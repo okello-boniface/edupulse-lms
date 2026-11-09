@@ -252,15 +252,33 @@
   });
 </script>
                         <script>
-  // Automatically update the Live Class banner on student dashboards in real time
+  // 1. Sync Active Students Count from "students" collection
+  onSnapshot(collection(db, "students"), (snapshot) => {
+    const studentCount = snapshot.size;
+    const countEl = document.getElementById('stat-active-students');
+    if (countEl) countEl.textContent = studentCount;
+  });
+
+  // 2. Sync Live Sessions Count & Banner from "live_classes" collection
   onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
+    const liveCount = snapshot.size;
+    const sessionsEl = document.getElementById('stat-live-sessions');
+    if (sessionsEl) sessionsEl.textContent = `${liveCount} sessions`;
+
     if (!snapshot.empty) {
       const latestClass = snapshot.docs[0].data();
-      const bannerText = document.querySelector('.bg-indigo-600 p'); 
+      const bannerText = document.querySelector('.welcome-subline, p.text-indigo-100');
       if (bannerText) {
-        bannerText.textContent = `${latestClass.title} is scheduled for ${latestClass.scheduledTime}!`;
+        bannerText.textContent = `You have a live class scheduled today: ${latestClass.title} at ${latestClass.scheduledTime}.`;
       }
     }
+  });
+
+  // 3. Sync Uploaded Files Count from "materials" collection
+  onSnapshot(collection(db, "materials"), (snapshot) => {
+    const filesCount = snapshot.size;
+    const filesEl = document.getElementById('stat-uploaded-files');
+    if (filesEl) filesEl.textContent = filesCount;
   });
 </script>
                 
