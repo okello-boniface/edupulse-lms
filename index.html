@@ -6,6 +6,8 @@
     <title>EduPulse LMS - Data Analytics & Learning Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flutterwave Inline Checkout JS for Mobile Money -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -13,8 +15,51 @@
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
+    <!-- Paywall / Auth Gate Modal (Shown if user is not logged in or hasn't paid) -->
+    <div id="auth-paywall-modal" class="fixed inset-0 bg-gray-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6">
+            <div class="text-center space-y-2">
+                <div class="bg-indigo-600 text-white w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-md">
+                    🎓
+                </div>
+                <h2 class="text-2xl font-extrabold text-gray-900">EduPulse Hub Access</h2>
+                <p class="text-xs text-gray-500">Create your account and complete your subscription via Mobile Money to unlock the learning portal.</p>
+            </div>
+
+            <!-- Registration & Payment Form -->
+            <form id="signup-pay-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="auth-name" placeholder="e.g. Boniface Okello" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Email Address</label>
+                    <input type="email5" id="auth-email" placeholder="student@example.com" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
+                    <input type="password" id="auth-password" placeholder="••••••••" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Mobile Money Number (MTN / Airtel)</label>
+                    <input type="tel" id="auth-phone" placeholder="077XXXXXXXX or 075XXXXXXXX" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg transition">
+                        Proceed to Mobile Money Payment
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center text-[10px] text-gray-400">
+                Secured by Firebase & Flutterwave Mobile Money Gateway.
+            </div>
+        </div>
+    </div>
+
     <!-- Top Navigation Bar -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="bg-indigo-600 text-white p-2 rounded-xl flex items-center justify-center font-bold text-xl shadow-md">
@@ -35,11 +80,11 @@
 
             <div class="flex items-center space-x-3">
                 <div class="text-right hidden sm:block">
-                    <div class="text-sm font-semibold text-gray-900">Boniface</div>
-                    <div class="text-xs text-gray-500">Senior Data Analyst</div>
+                    <div id="user-display-name" class="text-sm font-semibold text-gray-900">Student</div>
+                    <button id="logout-btn" class="text-[10px] text-red-500 hover:underline">Sign Out</button>
                 </div>
                 <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center shadow-inner">
-                    B
+                    👤
                 </div>
             </div>
         </div>
@@ -57,16 +102,13 @@
                 <span class="px-3 py-1 rounded-full bg-indigo-500 bg-opacity-40 text-indigo-100 text-xs font-medium uppercase tracking-wider border border-indigo-400 border-opacity-30">
                     Academic Year 2026/2027
                 </span>
-                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome back, Boniface!</h1>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome to EduPulse Hub!</h1>
                 <p class="welcome-subline text-indigo-100 text-sm sm:text-base leading-relaxed">
-                    Senior Data Analyst • Click on any course module below to access your uploaded lecture notes, PDFs, and Google Drive video links.
+                    Subscription active • Access unlocked for advanced data analytics modules and live research sessions.
                 </p>
                 <div class="pt-2 flex flex-wrap gap-4">
                     <a id="launch-live-btn" href="#live-class" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center space-x-2">
                         <span>Launch Live Classroom</span>
-                    </a>
-                    <a href="#discussions-section" class="bg-indigo-800 bg-opacity-60 hover:bg-opacity-80 text-white font-semibold px-5 py-2.5 rounded-xl border border-indigo-400 border-opacity-30 transition text-sm flex items-center space-x-2">
-                        <span>Ask a Question</span>
                     </a>
                 </div>
             </div>
@@ -111,10 +153,8 @@
             </div>
         </section>
 
-        <!-- Two Column Layout: Modules & Discussions -->
+        <!-- Course Modules & Discussions -->
         <div id="discussions-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Course Outline & Progress (2 Columns) -->
             <section id="modules-section" class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6">
                 <div class="flex items-center justify-between border-b border-gray-100 pb-4">
                     <div>
@@ -122,100 +162,71 @@
                             <span>📚</span>
                             <span>Course Modules (Click to Open Materials)</span>
                         </h2>
-                        <p class="text-xs text-gray-500 mt-0.5">Select a module to access your custom PDFs and Google Drive video links</p>
                     </div>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">6 Active Modules</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">6 Modules</span>
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Module 1 -->
-                    <div onclick="openModuleModal(1)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 hover:shadow-md transition bg-gray-50 flex items-center justify-between cursor-pointer group">
+                    <div onclick="openModuleModal(1)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 transition bg-gray-50 flex items-center justify-between cursor-pointer group">
                         <div>
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 1</span>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">Cost of Diet Software & NutriSurvey</h3>
-                            <p class="text-xs text-gray-500 mt-0.5">Linear programming, nutrient requirements, & dietary recall analysis</p>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Module 1</span>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">Cost of Diet Software & NutriSurvey</h3>
                         </div>
-                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Completed</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Active</span>
                     </div>
-
-                    <!-- Module 2 -->
-                    <div onclick="openModuleModal(2)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 hover:shadow-md transition bg-gray-50 flex items-center justify-between cursor-pointer group">
+                    <div onclick="openModuleModal(2)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 transition bg-gray-50 flex items-center justify-between cursor-pointer group">
                         <div>
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 2</span>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">SPSS (Inferential Statistics)</h3>
-                            <p class="text-xs text-gray-500 mt-0.5">Logistic regression, Chi-Square, ANOVA, and PCA / EFA factor analysis</p>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Module 2</span>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">SPSS (Inferential Statistics)</h3>
                         </div>
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">In Progress</span>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">Active</span>
                     </div>
-
-                    <!-- Module 3 -->
-                    <div onclick="openModuleModal(3)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 hover:shadow-md transition bg-gray-50 flex items-center justify-between cursor-pointer group">
+                    <div onclick="openModuleModal(3)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 transition bg-gray-50 flex items-center justify-between cursor-pointer group">
                         <div>
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 3</span>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">Advanced Python</h3>
-                            <p class="text-xs text-gray-500 mt-0.5">Pandas, NumPy, public health epidemiology data automation & scripting</p>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Module 3</span>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">Advanced Python</h3>
                         </div>
-                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Upcoming</span>
+                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Active</span>
                     </div>
-
-                    <!-- Module 4 -->
-                    <div onclick="openModuleModal(4)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 hover:shadow-md transition bg-gray-50 flex items-center justify-between cursor-pointer group">
+                    <div onclick="openModuleModal(4)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 transition bg-gray-50 flex items-center justify-between cursor-pointer group">
                         <div>
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 4</span>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">R, Stata & Epi Softwares</h3>
-                            <p class="text-xs text-gray-500 mt-0.5">Epi Info, EpiData, multivariable modeling in R & Stata do-files</p>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Module 4</span>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">R, Stata & Epi Softwares</h3>
                         </div>
-                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Upcoming</span>
+                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Active</span>
                     </div>
-
-                    <!-- Module 5 -->
-                    <div onclick="openModuleModal(5)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 hover:shadow-md transition bg-gray-50 flex items-center justify-between cursor-pointer group">
+                    <div onclick="openModuleModal(5)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 transition bg-gray-50 flex items-center justify-between cursor-pointer group">
                         <div>
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 5</span>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">ENA for SMART & WHO Anthro Plus</h3>
-                            <p class="text-xs text-gray-500 mt-0.5">Anthropometric Z-score calculations (HAZ, WAZ, WHZ), plausibility check & SMART surveys</p>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Module 5</span>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">ENA for SMART & WHO Anthro Plus</h3>
                         </div>
-                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Upcoming</span>
+                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Active</span>
                     </div>
-
-                    <!-- Module 6 -->
-                    <div onclick="openModuleModal(6)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 hover:shadow-md transition bg-gray-50 flex items-center justify-between cursor-pointer group">
+                    <div onclick="openModuleModal(6)" class="p-4 rounded-2xl border border-gray-100 hover:border-indigo-400 transition bg-gray-50 flex items-center justify-between cursor-pointer group">
                         <div>
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 6</span>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">Project & Proposal Writing</h3>
-                            <p class="text-xs text-gray-500 mt-0.5">Problem statement formulation, sampling methods, logframes, and ethical clearance</p>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Module 6</span>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">Project & Proposal Writing</h3>
                         </div>
-                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Upcoming</span>
+                        <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Active</span>
                     </div>
                 </div>
             </section>
 
-            <!-- Interactive Class Discussion Feed (1 Column) -->
+            <!-- Discussions -->
             <section class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6 flex flex-col">
                 <div class="border-b border-gray-100 pb-4">
                     <h2 class="text-lg font-bold text-gray-900 flex items-center space-x-2">
                         <span>💬</span>
-                        <span>Class Discussion & Questions</span>
+                        <span>Class Discussion</span>
                     </h2>
                 </div>
-
                 <form id="discussion-post-form" class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-3">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-900">Ask a Question or Share Note</h3>
-                    <input type="text" id="post-author" placeholder="Your Name (e.g. Boniface)" value="Boniface" required class="w-full text-xs px-3 py-2 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <textarea id="post-text" placeholder="Type your question or comment here..." rows="3" required class="w-full text-xs px-3 py-2 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-                    
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2 rounded-xl shadow transition">
-                        Post to Discussion Feed
-                    </button>
+                    <input type="text" id="post-author" placeholder="Your Name" required class="w-full text-xs px-3 py-2 rounded-xl border border-indigo-200 bg-white">
+                    <textarea id="post-text" placeholder="Type your question..." rows="2" required class="w-full text-xs px-3 py-2 rounded-xl border border-indigo-200 bg-white"></textarea>
+                    <button type="submit" class="w-full bg-indigo-600 text-white font-semibold text-xs py-2 rounded-xl shadow">Post</button>
                 </form>
-
-                <div id="discussions-feed" class="space-y-3 overflow-y-auto max-h-[550px] pr-1">
-                    <div class="p-3 bg-gray-50 rounded-2xl border border-gray-100 text-xs text-gray-500 text-center">
-                        Loading discussion threads...
-                    </div>
-                </div>
+                <div id="discussions-feed" class="space-y-3 overflow-y-auto max-h-[400px]"></div>
             </section>
-
         </div>
     </main>
 
@@ -223,39 +234,18 @@
     <div id="resource-modal" class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto">
             <button onclick="closeModuleModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 font-bold text-xl p-2">✕</button>
-            
             <div>
-                <span id="modal-module-tag" class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Module 1</span>
-                <h2 id="modal-module-title" class="text-2xl font-extrabold text-gray-900 mt-1">Cost of Diet Software & NutriSurvey</h2>
-                <p id="modal-module-desc" class="text-xs text-gray-500 mt-1">Access lecture slides, downloadable PDF notes, and recorded practical videos.</p>
+                <span id="modal-module-tag" class="text-xs font-bold text-indigo-600 uppercase">Module</span>
+                <h2 id="modal-module-title" class="text-2xl font-extrabold text-gray-900 mt-1"></h2>
+                <p id="modal-module-desc" class="text-xs text-gray-500 mt-1"></p>
             </div>
-
-            <!-- PDF Notes Section -->
             <div class="space-y-3">
-                <h3 class="text-sm font-bold text-gray-900 flex items-center space-x-2">
-                    <span>📄</span>
-                    <span>Downloadable PDF Notes & Documents</span>
-                </h3>
-                <div id="modal-pdf-list" class="space-y-2">
-                    <!-- Populated dynamically -->
-                </div>
+                <h3 class="text-sm font-bold text-gray-900">📄 PDF Notes</h3>
+                <div id="modal-pdf-list" class="space-y-2"></div>
             </div>
-
-            <!-- Video Lectures Section -->
             <div class="space-y-3 pt-2 border-t border-gray-100">
-                <h3 class="text-sm font-bold text-gray-900 flex items-center space-x-2">
-                    <span>📹</span>
-                    <span>Video Lectures & Google Drive Recordings</span>
-                </h3>
-                <div id="modal-video-list" class="space-y-2">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-
-            <div class="pt-4 flex justify-end">
-                <button onclick="closeModuleModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-xs font-semibold shadow">
-                    Close Modal
-                </button>
+                <h3 class="text-sm font-bold text-gray-900">📹 Video Recordings</h3>
+                <div id="modal-video-list" class="space-y-2"></div>
             </div>
         </div>
     </div>
@@ -267,10 +257,11 @@
         </div>
     </footer>
 
-    <!-- JavaScript Module Viewer & Firebase Script -->
+    <!-- Firebase Auth & Mobile Money Payment Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, doc, getDoc, setDoc, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCFdsnNZyH0BED2m8DFU_f67YbLsMaOqWA",
@@ -283,107 +274,31 @@
         };
 
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const db = getFirestore(app);
 
         let activeMeetUrl = "";
+        let currentUserData = null;
 
-        // =========================================================================
-        // ADD YOUR CUSTOM PDF AND GOOGLE DRIVE VIDEO LINKS HERE FOR EACH MODULE:
-        // =========================================================================
+        // Module Materials Config
         const moduleMaterials = {
-            1: {
-                tag: "Module 1",
-                title: "Cost of Diet Software & NutriSurvey",
-                desc: "Linear programming, nutrient requirements modeling, and 24-hour dietary recall analysis.",
-                pdfs: [
-                    // Example: { title: "My Module 1 Notes.pdf", url: "YOUR_GOOGLE_DRIVE_OR_PDF_LINK" }
-                ],
-                videos: [
-                    // Example: { title: "Module 1 Video Lecture", url: "YOUR_GOOGLE_DRIVE_VIDEO_LINK" }
-                ]
-            },
-            2: {
-                tag: "Module 2",
-                title: "SPSS (Inferential Statistics)",
-                desc: "Multivariable binary logistic regression, Chi-square tests, ANOVA, and PCA / EFA factor analysis.",
-                pdfs: [],
-                videos: []
-            },
-            3: {
-                tag: "Module 3",
-                title: "Advanced Python",
-                desc: "Data wrangling with Pandas, statistical modeling with SciPy, and automation scripts.",
-                pdfs: [],
-                videos: []
-            },
-            4: {
-                tag: "Module 4",
-                title: "R, Stata & Epi Softwares",
-                desc: "Epi Info, EpiData entry forms, Stata do-files, and R tidyverse workflow.",
-                pdfs: [],
-                videos: []
-            },
-            5: {
-                tag: "Module 5",
-                title: "ENA for SMART & WHO Anthro Plus",
-                desc: "Anthropometric Z-score calculation (HAZ, WAZ, WHZ), survey sampling, and SMART plausibility checks.",
-                pdfs: [],
-                videos: []
-            },
-            6: {
-                tag: "Module 6",
-                title: "Project & Proposal Writing",
-                desc: "Formulating research questions, literature reviews, methodology design, logframes, and IRB ethics.",
-                pdfs: [],
-                videos: []
-            }
+            1: { tag: "Module 1", title: "Cost of Diet Software & NutriSurvey", desc: "Linear programming, nutrient requirements modeling, and 24-hour dietary recall analysis.", pdfs: [], videos: [] },
+            2: { tag: "Module 2", title: "SPSS (Inferential Statistics)", desc: "Multivariable binary logistic regression, Chi-square tests, ANOVA, and PCA / EFA factor analysis.", pdfs: [], videos: [] },
+            3: { tag: "Module 3", title: "Advanced Python", desc: "Data wrangling with Pandas, statistical modeling with SciPy, and automation scripts.", pdfs: [], videos: [] },
+            4: { tag: "Module 4", title: "R, Stata & Epi Softwares", desc: "Epi Info, EpiData entry forms, Stata do-files, and R tidyverse workflow.", pdfs: [], videos: [] },
+            5: { tag: "Module 5", title: "ENA for SMART & WHO Anthro Plus", desc: "Anthropometric Z-score calculation (HAZ, WAZ, WHZ), survey sampling, and SMART plausibility checks.", pdfs: [], videos: [] },
+            6: { tag: "Module 6", title: "Project & Proposal Writing", desc: "Formulating research questions, literature reviews, methodology design, logframes, and IRB ethics.", pdfs: [], videos: [] }
         };
 
-        // Make modal opener globally available
         window.openModuleModal = function(modId) {
             const data = moduleMaterials[modId];
             if (!data) return;
-
             document.getElementById('modal-module-tag').textContent = data.tag;
             document.getElementById('modal-module-title').textContent = data.title;
             document.getElementById('modal-module-desc').textContent = data.desc;
-
-            // Render PDFs
-            const pdfContainer = document.getElementById('modal-pdf-list');
-            if (data.pdfs.length === 0) {
-                pdfContainer.innerHTML = `<div class="p-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">No PDF notes uploaded for this module yet.</div>`;
-            } else {
-                pdfContainer.innerHTML = data.pdfs.map(pdf => `
-                    <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-indigo-50/50 rounded-xl border border-gray-100 transition">
-                        <span class="text-xs font-semibold text-gray-800 flex items-center space-x-2">
-                            <span class="text-red-500">📄</span>
-                            <span>${pdf.title}</span>
-                        </span>
-                        <a href="${pdf.url}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow transition">
-                            Open / Download
-                        </a>
-                    </div>
-                `).join('');
-            }
-
-            // Render Videos
-            const videoContainer = document.getElementById('modal-video-list');
-            if (data.videos.length === 0) {
-                videoContainer.innerHTML = `<div class="p-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">No video recordings uploaded for this module yet.</div>`;
-            } else {
-                videoContainer.innerHTML = data.videos.map(vid => `
-                    <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-purple-50/50 rounded-xl border border-gray-100 transition">
-                        <span class="text-xs font-semibold text-gray-800 flex items-center space-x-2">
-                            <span class="text-purple-600">🎥</span>
-                            <span>${vid.title}</span>
-                        </span>
-                        <a href="${vid.url}" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow transition">
-                            Watch Video
-                        </a>
-                    </div>
-                `).join('');
-            }
-
+            
+            document.getElementById('modal-pdf-list').innerHTML = `<div class="p-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">No PDF notes uploaded yet.</div>`;
+            document.getElementById('modal-video-list').innerHTML = `<div class="p-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">No videos uploaded yet.</div>`;
             document.getElementById('resource-modal').classList.remove('hidden');
         };
 
@@ -391,91 +306,133 @@
             document.getElementById('resource-modal').classList.add('hidden');
         };
 
-        // Firebase Sync Engine
-        onSnapshot(collection(db, "students"), (snapshot) => {
-            const studentCount = snapshot.size;
-            const countEl = document.getElementById('stat-active-students');
-            if (countEl && studentCount > 0) countEl.textContent = studentCount;
-        });
-
-        onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
-            const liveCount = snapshot.size;
-            const sessionsEl = document.getElementById('stat-live-sessions');
-            if (sessionsEl) sessionsEl.textContent = `${liveCount} sessions`;
-
-            if (!snapshot.empty) {
-                const latestClass = snapshot.docs[0].data();
-                const bannerText = document.querySelector('.welcome-subline');
-                if (bannerText && latestClass.title) {
-                    bannerText.textContent = `Live Class Scheduled: ${latestClass.title} at ${latestClass.scheduledTime || '1:00 PM'}.`;
-                }
-                if (latestClass.meetUrl) {
-                    let url = latestClass.meetUrl.trim();
-                    if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
-                    activeMeetUrl = url;
-                }
-            }
-        });
-
-        onSnapshot(collection(db, "materials"), (snapshot) => {
-            const filesCount = snapshot.size;
-            const filesEl = document.getElementById('stat-uploaded-files');
-            if (filesEl) filesEl.textContent = filesCount;
-        });
-
-        document.getElementById('launch-live-btn').addEventListener('click', (e) => {
+        // Handle Signup & Trigger Flutterwave Mobile Money Checkout
+        document.getElementById('signup-pay-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (activeMeetUrl) {
-                window.location.href = activeMeetUrl;
-            } else {
-                alert("Live class URL is still syncing or not available yet.");
-            }
-        });
-
-        document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const author = document.getElementById('post-author').value.trim();
-            const text = document.getElementById('post-text').value.trim();
+            const name = document.getElementById('auth-name').value.trim();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const phone = document.getElementById('auth-phone').value.trim();
 
             try {
-                await addDoc(collection(db, "discussions"), {
-                    author,
-                    text,
-                    createdAt: serverTimestamp()
+                // 1. Create Firebase Auth User
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                const uid = userCred.user.uid;
+
+                // 2. Trigger Flutterwave Mobile Money Modal
+                FlutterwaveCheckout({
+                    public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X", // Replace with your Flutterwave Public Key
+                    tx_ref: "EDUPULSE-" + Date.now(),
+                    amount: 50000, // Subscription amount in UGX (e.g. 50,000 UGX)
+                    currency: "UGX",
+                    country: "UG",
+                    payment_options: "mobilemoneyuganda",
+                    customer: {
+                        email: email,
+                        phone_number: phone,
+                        name: name,
+                    },
+                    callback: async function (data) {
+                        if (data.status === "successful" || data.status === "completed") {
+                            // 3. Save User & Payment status in Firestore
+                            await setDoc(doc(db, "users", uid), {
+                                name: name,
+                                email: email,
+                                phone: phone,
+                                isPaid: true,
+                                createdAt: serverTimestamp()
+                            });
+                            alert("Payment successful! Access granted.");
+                            location.reload();
+                        } else {
+                            alert("Payment was not completed. Please try again.");
+                        }
+                    },
+                    onclose: function() {
+                        alert("Payment window closed.");
+                    },
+                    customizations: {
+                        title: "EduPulse LMS Subscription",
+                        description: "Access to Data Analytics & Nutrition Modules",
+                        logo: "https://okello-boniface.github.io/edupulse-lms/favicon.ico",
+                    },
                 });
-                document.getElementById('post-text').value = '';
+
             } catch (err) {
-                console.error("Error adding post: ", err);
-                alert("Failed to post question. Check Firestore permissions.");
+                console.error("Auth error:", err);
+                alert("Error creating account: " + err.message);
             }
         });
 
-        onSnapshot(query(collection(db, "discussions"), orderBy("createdAt", "desc")), (snapshot) => {
-            const feedEl = document.getElementById('discussions-feed');
-            feedEl.innerHTML = "";
-
-            if (snapshot.empty) {
-                feedEl.innerHTML = `<div class="p-3 bg-gray-50 rounded-2xl border border-gray-100 text-xs text-gray-500 text-center">No discussion questions yet. Be the first to post a question!</div>`;
-                return;
+        // Auth State & Paywall Gatekeeper Check
+        onAuthStateChanged(auth, async (user) => {
+            const paywallModal = document.getElementById('auth-paywall-modal');
+            if (user) {
+                // Check if user has paid in Firestore
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists() && userDoc.data().isPaid) {
+                    currentUserData = userDoc.data();
+                    document.getElementById('user-display-name').textContent = currentUserData.name;
+                    paywallModal.classList.add('hidden'); // Unlock portal
+                    initDashboardListeners();
+                } else {
+                    paywallModal.classList.remove('hidden'); // Keep paywall locked
+                }
+            } else {
+                paywallModal.classList.remove('hidden'); // Show paywall
             }
+        });
 
-            snapshot.forEach((docSnap) => {
-                const post = docSnap.data();
-                const postCard = document.createElement('div');
-                postCard.className = "p-3 bg-indigo-50/40 rounded-2xl border border-indigo-100 space-y-1 text-sm";
-                postCard.innerHTML = `
-                    <div class="flex justify-between font-semibold text-indigo-900 text-xs">
-                        <span>${escapeHtml(post.author || 'Anonymous')}</span>
-                        <span class="text-[10px] text-indigo-400 font-normal">Just now</span>
-                    </div>
-                    <p class="text-indigo-900 text-xs leading-relaxed">${escapeHtml(post.text || '')}</p>
-                `;
-                feedEl.appendChild(postCard);
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth).then(() => location.reload());
+        });
+
+        // Initialize Live Sync Listeners once unlocked
+        function initDashboardListeners() {
+            onSnapshot(collection(db, "students"), (snapshot) => {
+                const countEl = document.getElementById('stat-active-students');
+                if (countEl && snapshot.size > 0) countEl.textContent = snapshot.size;
             });
-        });
 
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
+                const sessionsEl = document.getElementById('stat-live-sessions');
+                if (sessionsEl) sessionsEl.textContent = `${snapshot.size} sessions`;
+                if (!snapshot.empty) {
+                    const latest = snapshot.docs[0].data();
+                    let url = latest.meetUrl?.trim() || "";
+                    if (url && !url.startsWith('http')) url = 'https://' + url;
+                    activeMeetUrl = url;
+                    document.querySelector('.welcome-subline').textContent = `Live Class: ${latest.title} at ${latest.scheduledTime || '1:00 PM'}.`;
+                }
+            });
+
+            onSnapshot(collection(db, "materials"), (snapshot) => {
+                const filesEl = document.getElementById('stat-uploaded-files');
+                if (filesEl) filesEl.textContent = snapshot.size;
+            });
+
+            document.getElementById('launch-live-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (activeMeetUrl) window.location.href = activeMeetUrl;
+                else alert("Live class URL is syncing...");
+            });
+
+            document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = document.getElementById('post-text').value.trim();
+                const author = document.getElementById('post-author').value.trim() || currentUserData.name;
+                await addDoc(collection(db, "discussions"), { author, text, createdAt: serverTimestamp() });
+                document.getElementById('post-text').value = '';
+            });
+
+            onSnapshot(query(collection(db, "discussions"), orderBy("createdAt", "desc")), (snapshot) => {
+                const feed = document.getElementById('discussions-feed');
+                feed.innerHTML = snapshot.empty ? `<div class="p-3 bg-gray-50 text-xs text-gray-400 text-center">No posts yet.</div>` : "";
+                snapshot.forEach(d => {
+                    const p = d.data();
+                    feed.innerHTML += `<div class="p-3 bg-indigo-50/40 rounded-xl border border-indigo-100 text-xs"><span class="font-semibold text-indigo-900">${p.author}:</span> ${p.text}</div>`;
+                });
+            });
         }
     </script>
 </body>
