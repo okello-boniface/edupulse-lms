@@ -59,7 +59,7 @@
                 </span>
                 <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome back, Boniface!</h1>
                 <p class="welcome-subline text-indigo-100 text-sm sm:text-base leading-relaxed">
-                    Senior Data Analyst • Click on any course module below to access lecture slides, PDF manuals, and video tutorials.
+                    Senior Data Analyst • Click on any course module below to access your uploaded lecture notes, PDFs, and Google Drive video links.
                 </p>
                 <div class="pt-2 flex flex-wrap gap-4">
                     <a id="launch-live-btn" href="#live-class" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center space-x-2">
@@ -95,7 +95,7 @@
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Uploaded Files</p>
-                    <h3 id="stat-uploaded-files" class="text-3xl font-bold text-gray-900 mt-1">12</h3>
+                    <h3 id="stat-uploaded-files" class="text-3xl font-bold text-gray-900 mt-1">1</h3>
                     <p class="text-xs text-gray-500 font-medium mt-1">Notes & slide decks</p>
                 </div>
                 <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl">📄</div>
@@ -120,9 +120,9 @@
                     <div>
                         <h2 class="text-lg font-bold text-gray-900 flex items-center space-x-2">
                             <span>📚</span>
-                            <span>Course Modules (Click to View Materials)</span>
+                            <span>Course Modules (Click to Open Materials)</span>
                         </h2>
-                        <p class="text-xs text-gray-500 mt-0.5">Select a module to view PDF notes and video tutorials</p>
+                        <p class="text-xs text-gray-500 mt-0.5">Select a module to access your custom PDFs and Google Drive video links</p>
                     </div>
                     <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">6 Active Modules</span>
                 </div>
@@ -245,7 +245,7 @@
             <div class="space-y-3 pt-2 border-t border-gray-100">
                 <h3 class="text-sm font-bold text-gray-900 flex items-center space-x-2">
                     <span>📹</span>
-                    <span>Video Lectures & Tutorials</span>
+                    <span>Video Lectures & Google Drive Recordings</span>
                 </h3>
                 <div id="modal-video-list" class="space-y-2">
                     <!-- Populated dynamically -->
@@ -287,83 +287,55 @@
 
         let activeMeetUrl = "";
 
-        // Module Materials Database (Can replace URLs with your actual Google Drive or GitHub PDF/Video links)
+        // =========================================================================
+        // ADD YOUR CUSTOM PDF AND GOOGLE DRIVE VIDEO LINKS HERE FOR EACH MODULE:
+        // =========================================================================
         const moduleMaterials = {
             1: {
                 tag: "Module 1",
                 title: "Cost of Diet Software & NutriSurvey",
                 desc: "Linear programming, nutrient requirements modeling, and 24-hour dietary recall analysis.",
                 pdfs: [
-                    { title: "Cost of Diet Software Guide.pdf", url: "#" },
-                    { title: "NutriSurvey Food Composition Analysis Manual.pdf", url: "#" }
+                    // Example: { title: "My Module 1 Notes.pdf", url: "YOUR_GOOGLE_DRIVE_OR_PDF_LINK" }
                 ],
                 videos: [
-                    { title: "NutriSurvey Step-by-Step Data Entry & Output", url: "https://www.youtube.com" },
-                    { title: "Cost of Diet Linear Programming Workshop", url: "https://www.youtube.com" }
+                    // Example: { title: "Module 1 Video Lecture", url: "YOUR_GOOGLE_DRIVE_VIDEO_LINK" }
                 ]
             },
             2: {
                 tag: "Module 2",
                 title: "SPSS (Inferential Statistics)",
                 desc: "Multivariable binary logistic regression, Chi-square tests, ANOVA, and PCA / EFA factor analysis.",
-                pdfs: [
-                    { title: "SPSS Survival Manual & Factor Analysis Steps.pdf", url: "#" },
-                    { title: "Logistic Regression & Odds Ratio Interpretation.pdf", url: "#" }
-                ],
-                videos: [
-                    { title: "Principal Component Analysis (PCA) Varimax Rotation in SPSS", url: "https://www.youtube.com" },
-                    { title: "Binary Logistic Regression with Model Diagnostics", url: "https://www.youtube.com" }
-                ]
+                pdfs: [],
+                videos: []
             },
             3: {
                 tag: "Module 3",
                 title: "Advanced Python",
                 desc: "Data wrangling with Pandas, statistical modeling with SciPy, and automation scripts.",
-                pdfs: [
-                    { title: "Python for Public Health Data Analytics.pdf", url: "#" },
-                    { title: "Pandas Data Cleaning Cheatsheet.pdf", url: "#" }
-                ],
-                videos: [
-                    { title: "Automating Health Survey Data Processing in Python", url: "https://www.youtube.com" }
-                ]
+                pdfs: [],
+                videos: []
             },
             4: {
                 tag: "Module 4",
                 title: "R, Stata & Epi Softwares",
                 desc: "Epi Info, EpiData entry forms, Stata do-files, and R tidyverse workflow.",
-                pdfs: [
-                    { title: "Stata Analysis Do-File Examples.pdf", url: "#" },
-                    { title: "Epi Info & EpiData Questionnaire Design.pdf", url: "#" }
-                ],
-                videos: [
-                    { title: "Building EpiData Entry Masks with Validation Checks", url: "https://www.youtube.com" },
-                    { title: "Stata Multivariable Regression Commands", url: "https://www.youtube.com" }
-                ]
+                pdfs: [],
+                videos: []
             },
             5: {
                 tag: "Module 5",
                 title: "ENA for SMART & WHO Anthro Plus",
                 desc: "Anthropometric Z-score calculation (HAZ, WAZ, WHZ), survey sampling, and SMART plausibility checks.",
-                pdfs: [
-                    { title: "WHO Anthro Z-Score Calculation Standard Operating Procedure.pdf", url: "#" },
-                    { title: "ENA for SMART Plausibility Report Guidelines.pdf", url: "#" }
-                ],
-                videos: [
-                    { title: "Running SMART Plausibility Report in ENA Software", url: "https://www.youtube.com" },
-                    { title: "Importing Anthropometric Data into WHO Anthro Plus", url: "https://www.youtube.com" }
-                ]
+                pdfs: [],
+                videos: []
             },
             6: {
                 tag: "Module 6",
                 title: "Project & Proposal Writing",
                 desc: "Formulating research questions, literature reviews, methodology design, logframes, and IRB ethics.",
-                pdfs: [
-                    { title: "Research Proposal Template & Ethical Clearance Guide.pdf", url: "#" },
-                    { title: "Logical Framework (Logframe) Matrix Sample.pdf", url: "#" }
-                ],
-                videos: [
-                    { title: "How to Draft a Rigorous Methodology & Data Collection Plan", url: "https://www.youtube.com" }
-                ]
+                pdfs: [],
+                videos: []
             }
         };
 
@@ -378,31 +350,39 @@
 
             // Render PDFs
             const pdfContainer = document.getElementById('modal-pdf-list');
-            pdfContainer.innerHTML = data.pdfs.map(pdf => `
-                <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-indigo-50/50 rounded-xl border border-gray-100 transition">
-                    <span class="text-xs font-semibold text-gray-800 flex items-center space-x-2">
-                        <span class="text-red-500">📄</span>
-                        <span>${pdf.title}</span>
-                    </span>
-                    <a href="${pdf.url}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow transition">
-                        Download PDF
-                    </a>
-                </div>
-            `).join('');
+            if (data.pdfs.length === 0) {
+                pdfContainer.innerHTML = `<div class="p-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">No PDF notes uploaded for this module yet.</div>`;
+            } else {
+                pdfContainer.innerHTML = data.pdfs.map(pdf => `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-indigo-50/50 rounded-xl border border-gray-100 transition">
+                        <span class="text-xs font-semibold text-gray-800 flex items-center space-x-2">
+                            <span class="text-red-500">📄</span>
+                            <span>${pdf.title}</span>
+                        </span>
+                        <a href="${pdf.url}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow transition">
+                            Open / Download
+                        </a>
+                    </div>
+                `).join('');
+            }
 
             // Render Videos
             const videoContainer = document.getElementById('modal-video-list');
-            videoContainer.innerHTML = data.videos.map(vid => `
-                <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-purple-50/50 rounded-xl border border-gray-100 transition">
-                    <span class="text-xs font-semibold text-gray-800 flex items-center space-x-2">
-                        <span class="text-purple-600">🎥</span>
-                        <span>${vid.title}</span>
-                    </span>
-                    <a href="${vid.url}" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow transition">
-                        Watch Video
-                    </a>
-                </div>
-            `).join('');
+            if (data.videos.length === 0) {
+                videoContainer.innerHTML = `<div class="p-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">No video recordings uploaded for this module yet.</div>`;
+            } else {
+                videoContainer.innerHTML = data.videos.map(vid => `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-purple-50/50 rounded-xl border border-gray-100 transition">
+                        <span class="text-xs font-semibold text-gray-800 flex items-center space-x-2">
+                            <span class="text-purple-600">🎥</span>
+                            <span>${vid.title}</span>
+                        </span>
+                        <a href="${vid.url}" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow transition">
+                            Watch Video
+                        </a>
+                    </div>
+                `).join('');
+            }
 
             document.getElementById('resource-modal').classList.remove('hidden');
         };
