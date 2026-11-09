@@ -213,8 +213,8 @@
             if (countEl && studentCount > 0) countEl.textContent = studentCount;
         });
 
-        // 2. Sync Live Class Banner & Google Meet link from "live_classes" collection
-        onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
+        // 2. Sync Live Class Banner & Google Meet link from "Live_classes" collection
+        onSnapshot(query(collection(db, "Live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
             const liveCount = snapshot.size;
             const sessionsEl = document.getElementById('stat-live-sessions');
             if (sessionsEl) sessionsEl.textContent = `${liveCount} sessions`;
