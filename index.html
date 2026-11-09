@@ -30,7 +30,7 @@
                 <a href="#dashboard" class="text-indigo-600 flex items-center space-x-1"><span>Dashboard</span></a>
                 <a href="#live-class" class="hover:text-indigo-600 transition flex items-center space-x-1"><span>Live Class</span></a>
                 <a href="#notes" class="hover:text-indigo-600 transition flex items-center space-x-1"><span>Notes & Docs</span></a>
-                <a href="#videos" class="hover:text-indigo-600 transition flex items-center space-x-1"><span>Video Library</span></a>
+                <a href="#discussions-section" class="hover:text-indigo-600 transition flex items-center space-x-1"><span>Class Discussion</span></a>
             </nav>
 
             <div class="flex items-center space-x-3">
@@ -65,8 +65,8 @@
                     <a id="launch-live-btn" href="#live-class" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center space-x-2">
                         <span>Launch Live Classroom</span>
                     </a>
-                    <a href="#notes" class="bg-indigo-800 bg-opacity-60 hover:bg-opacity-80 text-white font-semibold px-5 py-2.5 rounded-xl border border-indigo-400 border-opacity-30 transition text-sm flex items-center space-x-2">
-                        <span>Post Material</span>
+                    <a href="#discussions-section" class="bg-indigo-800 bg-opacity-60 hover:bg-opacity-80 text-white font-semibold px-5 py-2.5 rounded-xl border border-indigo-400 border-opacity-30 transition text-sm flex items-center space-x-2">
+                        <span>Ask a Question</span>
                     </a>
                 </div>
             </div>
@@ -74,57 +74,45 @@
 
         <!-- Stats Overview Grid -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Active Students Stat Card -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Active Students</p>
                     <h3 id="stat-active-students" class="text-3xl font-bold text-gray-900 mt-1">142</h3>
                     <p class="text-xs text-emerald-600 font-medium mt-1">↑ +12% this month</p>
                 </div>
-                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl">
-                    👥
-                </div>
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl">👥</div>
             </div>
 
-            <!-- Live Sessions Stat Card -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Live Sessions</p>
-                    <h3 id="stat-live-sessions" class="text-3xl font-bold text-gray-900 mt-1">28 hrs</h3>
+                    <h3 id="stat-live-sessions" class="text-3xl font-bold text-gray-900 mt-1">0 sessions</h3>
                     <p class="text-xs text-gray-500 font-medium mt-1">Synced with Firestore</p>
                 </div>
-                <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center text-xl">
-                    📹
-                </div>
+                <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center text-xl">📹</div>
             </div>
 
-            <!-- Uploaded Files Stat Card -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Uploaded Files</p>
-                    <h3 id="stat-uploaded-files" class="text-3xl font-bold text-gray-900 mt-1">10</h3>
+                    <h3 id="stat-uploaded-files" class="text-3xl font-bold text-gray-900 mt-1">1</h3>
                     <p class="text-xs text-gray-500 font-medium mt-1">Notes & slide decks</p>
                 </div>
-                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl">
-                    📄
-                </div>
+                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl">📄</div>
             </div>
 
-            <!-- Avg Completion Stat Card -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Avg Completion</p>
                     <h3 id="stat-avg-completion" class="text-3xl font-bold text-gray-900 mt-1">87%</h3>
                     <p class="text-xs text-emerald-600 font-medium mt-1">⚡ High engagement</p>
                 </div>
-                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">
-                    📈
-                </div>
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">📈</div>
             </div>
         </section>
 
         <!-- Two Column Layout: Modules & Discussions -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div id="discussions-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <!-- Course Outline & Progress (2 Columns) -->
             <section class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6">
@@ -163,30 +151,30 @@
                 </div>
             </section>
 
-            <!-- Class Discussion / Quick Feed (1 Column) -->
-            <section class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6">
+            <!-- Interactive Class Discussion Feed (1 Column) -->
+            <section class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6 flex flex-col">
                 <div class="border-b border-gray-100 pb-4">
                     <h2 class="text-lg font-bold text-gray-900 flex items-center space-x-2">
                         <span>💬</span>
-                        <span>Class Discussion</span>
+                        <span>Class Discussion & Questions</span>
                     </h2>
                 </div>
 
-                <div class="space-y-4 text-sm">
-                    <div class="p-3 bg-indigo-50 rounded-2xl border border-indigo-100 space-y-1">
-                        <div class="flex justify-between font-semibold text-indigo-900">
-                            <span>Boniface</span>
-                            <span class="text-xs text-indigo-500 font-normal">Just now</span>
-                        </div>
-                        <p class="text-indigo-800">Welcome to EduPulse! Live sessions and materials are now syncing in real time via Firestore.</p>
-                    </div>
+                <!-- Post Submission Form -->
+                <form id="discussion-post-form" class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-900">Ask a Question or Share Note</h3>
+                    <input type="text" id="post-author" placeholder="Your Name (e.g. Boniface)" value="Boniface" required class="w-full text-xs px-3 py-2 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <textarea id="post-text" placeholder="Type your question or comment here..." rows="3" required class="w-full text-xs px-3 py-2 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
                     
-                    <div class="p-3 bg-gray-50 rounded-2xl border border-gray-100 space-y-1">
-                        <div class="flex justify-between font-semibold text-gray-900">
-                            <span>System Admin</span>
-                            <span class="text-xs text-gray-400 font-normal">2h ago</span>
-                        </div>
-                        <p class="text-gray-600">Please review Module 2 notes before our 1:00 PM live session today.</p>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2 rounded-xl shadow transition">
+                        Post to Discussion Feed
+                    </button>
+                </form>
+
+                <!-- Live Discussion Feed Container -->
+                <div id="discussions-feed" class="space-y-3 overflow-y-auto max-h-[450px] pr-1">
+                    <div class="p-3 bg-gray-50 rounded-2xl border border-gray-100 text-xs text-gray-500 text-center">
+                        Loading discussion threads...
                     </div>
                 </div>
             </section>
@@ -204,9 +192,8 @@
     <!-- Firebase Real-Time Synchronization Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Your Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCFdsnNZyH0BED2m8DFU_f67YbLsMaOqWA",
             authDomain: "data-analytics-portal-cd545.firebaseapp.com",
@@ -217,20 +204,19 @@
             measurementId: "G-RE1PE4C8NG"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         let activeMeetUrl = "";
 
-        // 1. Sync Active Students Count from "students" collection
+        // 1. Sync Active Students Count
         onSnapshot(collection(db, "students"), (snapshot) => {
             const studentCount = snapshot.size;
             const countEl = document.getElementById('stat-active-students');
             if (countEl && studentCount > 0) countEl.textContent = studentCount;
         });
 
-        // 2. Sync Live Class Banner & Google Meet link from "live_classes" collection (lowercase)
+        // 2. Sync Live Class Banner & Google Meet link
         onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
             const liveCount = snapshot.size;
             const sessionsEl = document.getElementById('stat-live-sessions');
@@ -238,40 +224,82 @@
 
             if (!snapshot.empty) {
                 const latestClass = snapshot.docs[0].data();
-                
-                // Update Banner Text
                 const bannerText = document.querySelector('.welcome-subline');
                 if (bannerText && latestClass.title) {
                     bannerText.textContent = `Live Class Scheduled: ${latestClass.title} at ${latestClass.scheduledTime || '1:00 PM'}.`;
                 }
-
-                // Store Google Meet Link in memory securely
                 if (latestClass.meetUrl) {
                     let url = latestClass.meetUrl.trim();
-                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                        url = 'https://' + url;
-                    }
+                    if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
                     activeMeetUrl = url;
                 }
             }
         });
 
-        // 3. Sync Uploaded Files Count from "materials" collection
+        // 3. Sync Uploaded Files Count
         onSnapshot(collection(db, "materials"), (snapshot) => {
             const filesCount = snapshot.size;
             const filesEl = document.getElementById('stat-uploaded-files');
             if (filesEl) filesEl.textContent = filesCount;
         });
 
-        // 4. Handle Click Event explicitly to navigate to Google Meet in the same tab
+        // 4. Handle Launch Live Button Click
         document.getElementById('launch-live-btn').addEventListener('click', (e) => {
             e.preventDefault();
             if (activeMeetUrl) {
                 window.location.href = activeMeetUrl;
             } else {
-                alert("Live class URL is still syncing. Please check your Firestore connection.");
+                alert("Live class URL is still syncing or not available yet.");
             }
         });
+
+        // 5. Handle Submitting Question/Comment to Firestore
+        document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const author = document.getElementById('post-author').value.trim();
+            const text = document.getElementById('post-text').value.trim();
+
+            try {
+                await addDoc(collection(db, "discussions"), {
+                    author,
+                    text,
+                    createdAt: serverTimestamp()
+                });
+                document.getElementById('post-text').value = '';
+            } catch (err) {
+                console.error("Error adding post: ", err);
+                alert("Failed to post question. Check Firestore permissions.");
+            }
+        });
+
+        // 6. Real-time Sync & Render for Discussions Feed
+        onSnapshot(query(collection(db, "discussions"), orderBy("createdAt", "desc")), (snapshot) => {
+            const feedEl = document.getElementById('discussions-feed');
+            feedEl.innerHTML = "";
+
+            if (snapshot.empty) {
+                feedEl.innerHTML = `<div class="p-3 bg-gray-50 rounded-2xl border border-gray-100 text-xs text-gray-500 text-center">No discussion questions yet. Be the first to post a question!</div>`;
+                return;
+            }
+
+            snapshot.forEach((docSnap) => {
+                const post = docSnap.data();
+                const postCard = document.createElement('div');
+                postCard.className = "p-3 bg-indigo-50/40 rounded-2xl border border-indigo-100 space-y-1 text-sm";
+                postCard.innerHTML = `
+                    <div class="flex justify-between font-semibold text-indigo-900 text-xs">
+                        <span>${escapeHtml(post.author || 'Anonymous')}</span>
+                        <span class="text-[10px] text-indigo-400 font-normal">Just now</span>
+                    </div>
+                    <p class="text-indigo-900 text-xs leading-relaxed">${escapeHtml(post.text || '')}</p>
+                `;
+                feedEl.appendChild(postCard);
+            });
+        });
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
     </script>
 </body>
 </html>
