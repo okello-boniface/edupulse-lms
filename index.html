@@ -62,7 +62,7 @@
                     Senior Data Analyst • Real-time synchronization active for CS-402 Advanced Data Science and course modules.
                 </p>
                 <div class="pt-2 flex flex-wrap gap-4">
-                    <a href="#live-class" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center space-x-2">
+                    <a id="launch-live-btn" href="#live-class" target="_blank" class="bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center space-x-2">
                         <span>Launch Live Classroom</span>
                     </a>
                     <a href="#notes" class="bg-indigo-800 bg-opacity-60 hover:bg-opacity-80 text-white font-semibold px-5 py-2.5 rounded-xl border border-indigo-400 border-opacity-30 transition text-sm flex items-center space-x-2">
@@ -206,14 +206,14 @@
         import { db } from "./firebase-config.js";
         import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // 1. Sync Active Students Count
+        // 1. Sync Active Students Count from "students" collection
         onSnapshot(collection(db, "students"), (snapshot) => {
             const studentCount = snapshot.size;
             const countEl = document.getElementById('stat-active-students');
             if (countEl && studentCount > 0) countEl.textContent = studentCount;
         });
 
-        // 2. Sync Live Sessions Count & Banner from live_classes collection
+        // 2. Sync Live Class Banner & Google Meet link from "live_classes" collection
         onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
             const liveCount = snapshot.size;
             const sessionsEl = document.getElementById('stat-live-sessions');
@@ -221,14 +221,22 @@
 
             if (!snapshot.empty) {
                 const latestClass = snapshot.docs[0].data();
+                
+                // Update Banner Text
                 const bannerText = document.querySelector('.welcome-subline');
                 if (bannerText && latestClass.title) {
                     bannerText.textContent = `Live Class Scheduled: ${latestClass.title} at ${latestClass.scheduledTime || '1:00 PM'}.`;
                 }
+
+                // Update Google Meet Link on the Launch Button
+                const launchBtn = document.getElementById('launch-live-btn');
+                if (launchBtn && latestClass.meetUrl) {
+                    launchBtn.href = latestClass.meetUrl;
+                }
             }
         });
 
-        // 3. Sync Uploaded Files Count from materials collection
+        // 3. Sync Uploaded Files Count from "materials" collection
         onSnapshot(collection(db, "materials"), (snapshot) => {
             const filesCount = snapshot.size;
             const filesEl = document.getElementById('stat-uploaded-files');
