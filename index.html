@@ -251,6 +251,7 @@
     }
   });
 </script>
+                        <script>
                         // Sync and display uploaded files count from Firestore "materials" collection
 onSnapshot(collection(db, "materials"), (snapshot) => {
   const filesCount = snapshot.size;
@@ -271,7 +272,8 @@ async function uploadCourseNote(title, fileUrl, category) {
   } catch (error) {
     console.error("❌ Error uploading note: ", error);
   }
-}                      
+} 
+                            </script>
                         <script>
   // Automatically update the Live Class banner on student dashboards in real time
   onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
