@@ -251,15 +251,19 @@
     }
   });
 </script>
-                        <script>
-  // 1. Sync Active Students Count from "students" collection
+                        <script type="module">
+  import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // Note: Ensure 'db' is initialized and available globally or imported from your config file.
+  
+  // 1. Sync Active Students Count
   onSnapshot(collection(db, "students"), (snapshot) => {
     const studentCount = snapshot.size;
     const countEl = document.getElementById('stat-active-students');
     if (countEl) countEl.textContent = studentCount;
   });
 
-  // 2. Sync Live Sessions Count & Banner from "live_classes" collection
+  // 2. Sync Live Sessions Count & Banner
   onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
     const liveCount = snapshot.size;
     const sessionsEl = document.getElementById('stat-live-sessions');
@@ -274,7 +278,7 @@
     }
   });
 
-  // 3. Sync Uploaded Files Count from "materials" collection
+  // 3. Sync Uploaded Files Count
   onSnapshot(collection(db, "materials"), (snapshot) => {
     const filesCount = snapshot.size;
     const filesEl = document.getElementById('stat-uploaded-files');
