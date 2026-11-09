@@ -221,6 +221,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        let activeMeetUrl = "";
+
         // 1. Sync Active Students Count from "students" collection
         onSnapshot(collection(db, "students"), (snapshot) => {
             const studentCount = snapshot.size;
@@ -243,14 +245,13 @@
                     bannerText.textContent = `Live Class Scheduled: ${latestClass.title} at ${latestClass.scheduledTime || '1:00 PM'}.`;
                 }
 
-                // Update Google Meet Link on the Launch Button (opens in same tab)
-                const launchBtn = document.getElementById('launch-live-btn');
-                if (launchBtn && latestClass.meetUrl) {
+                // Store Google Meet Link in memory securely
+                if (latestClass.meetUrl) {
                     let url = latestClass.meetUrl.trim();
                     if (!url.startsWith('http://') && !url.startsWith('https://')) {
                         url = 'https://' + url;
                     }
-                    launchBtn.href = url;
+                    activeMeetUrl = url;
                 }
             }
         });
@@ -260,6 +261,16 @@
             const filesCount = snapshot.size;
             const filesEl = document.getElementById('stat-uploaded-files');
             if (filesEl) filesEl.textContent = filesCount;
+        });
+
+        // 4. Handle Click Event explicitly to navigate to Google Meet in the same tab
+        document.getElementById('launch-live-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (activeMeetUrl) {
+                window.location.href = activeMeetUrl;
+            } else {
+                alert("Live class URL is still syncing. Please check your Firestore connection.");
+            }
         });
     </script>
 </body>
