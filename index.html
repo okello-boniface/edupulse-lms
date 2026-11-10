@@ -176,7 +176,7 @@
                 <span class="px-3 py-1 rounded-full bg-indigo-500 bg-opacity-40 text-indigo-100 text-xs font-medium uppercase tracking-wider border border-indigo-400 border-opacity-30">
                     Academic Year 2026/2027
                 </span>
-                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome to EduPulse Hub!</h1>
+                <h1 id="welcome-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome to EduPulse Hub!</h1>
                 <p class="welcome-subline text-indigo-100 text-sm sm:text-base leading-relaxed">
                     Subscription active • Access unlocked for advanced data analytics modules and live research sessions.
                 </p>
@@ -354,6 +354,30 @@
         let activeMeetUrl = "";
         let currentUserData = null;
 
+        // Function to update the welcome greeting dynamically based on current time and user's name
+        function updateDynamicGreeting(fullName) {
+            const hour = new Date().getHours();
+            let timeGreeting = "Welcome";
+
+            if (hour >= 5 && hour < 12) {
+                timeGreeting = "Good morning";
+            } else if (hour >= 12 && hour < 17) {
+                timeGreeting = "Good afternoon";
+            } else {
+                timeGreeting = "Good evening";
+            }
+
+            // Extract the first name or use the full name if preferred
+            // e.g., "Boniface" from "Okello Boniface"
+            const nameParts = fullName ? fullName.trim().split(" ") : ["Student"];
+            const displayName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
+
+            const welcomeTitleEl = document.getElementById('welcome-title');
+            if (welcomeTitleEl) {
+                welcomeTitleEl.textContent = `${timeGreeting}, ${displayName}!`;
+            }
+        }
+
         window.toggleAuthMode = function(isLogin) {
             if (isLogin) {
                 document.getElementById('signup-container').classList.add('hidden');
@@ -459,6 +483,10 @@
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
                     currentUserData = userDoc.data();
+                    
+                    // Trigger the time-based greeting using the user's registered name
+                    updateDynamicGreeting(currentUserData.name);
+
                     if (currentUserData.isPaid) {
                         document.getElementById('user-display-name').textContent = currentUserData.name;
                         paywallModal.classList.add('hidden');
