@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPulse - Modern Online Learning Management System</title>
+    <title>Dativa Research Consultancy - Data Analytics & Learning Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -33,13 +33,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Custom scrollbars */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        
-        /* Smooth tab transition */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.25s ease-in-out; }
         @keyframes fadeIn {
@@ -50,22 +47,135 @@
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
+    <!-- Auth & Paywall Modal -->
+    <div id="auth-paywall-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6 border border-slate-200 dark:border-slate-700">
+            
+            <!-- Step 1: Signup Form -->
+            <div id="signup-container">
+                <div class="text-center space-y-2 mb-6">
+                    <img src="dativa_logo.png" alt="Dativa Research Consultancy Logo" class="h-12 mx-auto">
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Dativa Portal Access</h2>
+                    <p class="text-xs text-slate-500">Create your account to begin your subscription enrollment.</p>
+                </div>
+
+                <form id="signup-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+                        <input type="text" id="auth-name" placeholder="e.g. Okello Boniface" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                        <input type="email" id="auth-email" placeholder="student@example.com" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
+                        <input type="password" id="auth-password" placeholder="••••••••" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg transition">
+                            Create Account & Proceed to Payment
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <button onclick="toggleAuthMode(true)" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Already have an account? Sign in</button>
+                </div>
+            </div>
+
+            <!-- Step 1b: Login Form (Hidden by default) -->
+            <div id="login-container" class="hidden">
+                <div class="text-center space-y-2 mb-6">
+                    <img src="dativa_logo.png" alt="Dativa Research Consultancy Logo" class="h-12 mx-auto">
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Welcome Back</h2>
+                    <p class="text-xs text-slate-500">Sign in to access your dashboard.</p>
+                </div>
+
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                        <input type="email" id="login-email" placeholder="student@example.com" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg transition">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <button onclick="toggleAuthMode(false)" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Need an account? Create one</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Payment Instructions & Proof Submission -->
+            <div id="payment-instructions-container" class="hidden space-y-4">
+                <div class="text-center space-y-1">
+                    <span class="px-3 py-1 bg-amber-100 text-amber-800 text-[10px] font-bold rounded-full uppercase tracking-wider">Subscription Pending</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Complete Your Deposit</h3>
+                    <p class="text-xs text-slate-500">Send your payment via Mobile Money, then send your proof of payment to WhatsApp:</p>
+                </div>
+
+                <div class="bg-indigo-50 dark:bg-slate-900 p-4 rounded-2xl border border-indigo-100 dark:border-slate-700 space-y-2 text-xs text-slate-800 dark:text-slate-200">
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Full Deposit:</span>
+                        <span class="font-bold">100,000 UGX</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Partial Deposit:</span>
+                        <span class="font-bold">50,000 UGX</span>
+                    </div>
+                    <div class="border-t border-indigo-200 dark:border-slate-700 pt-2 flex justify-between">
+                        <span class="font-semibold">Mobile Number:</span>
+                        <span class="font-bold text-indigo-600 dark:text-indigo-400 text-sm">0765579126</span>
+                    </div>
+                    <div class="border-t border-indigo-200 dark:border-slate-700 pt-2 flex justify-between">
+                        <span class="font-semibold">WhatsApp Proof:</span>
+                        <span class="font-bold text-emerald-600 dark:text-emerald-400 text-sm">0770840851</span>
+                    </div>
+                </div>
+
+                <form id="proof-form" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Mobile Number / Transaction ID</label>
+                        <input type="text" id="proof-text" placeholder="e.g. 0771234567 or TXN-984321" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-3 rounded-xl shadow transition">
+                        Submit Proof & Confirm WhatsApp Sent
+                    </button>
+                </form>
+
+                <div id="pending-notice" class="hidden text-center text-xs text-amber-600 font-medium bg-amber-50 dark:bg-amber-950/40 p-3 rounded-xl">
+                    ⏳ Proof submitted! Waiting for instructor approval. Your dashboard will unlock once verified.
+                </div>
+
+                <div class="text-center pt-2">
+                    <button id="modal-logout-btn" class="text-xs text-red-500 hover:underline">Sign Out / Use Different Account</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Top Navigation Header -->
     <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
         <!-- Logo -->
         <div class="flex items-center space-x-3">
-            <div class="bg-gradient-to-tr from-brand-600 to-purple-600 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center">
-                <i class="fa-solid font-bold fa-graduation-cap text-xl"></i>
-            </div>
-            <div>
-                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">EduPulse</span>
-                <span class="text-xs px-2 py-0.5 ml-2 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-semibold rounded-full">Academy Hub</span>
+            <img src="dativa_logo.png" alt="Dativa Research Consultancy Logo" class="h-10">
+            <div class="hidden sm:block">
+                <span class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">Dativa</span>
+                <span class="text-xs px-2 py-0.5 ml-1 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-semibold rounded-full">Research Consultancy</span>
             </div>
         </div>
 
         <!-- Main Navigation Tabs -->
         <nav class="hidden md:flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl">
-            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-white transition-all flex items-center space-x-2">
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-brand-600 bg-white dark:bg-slate-700 shadow-sm transition-all flex items-center space-x-2">
                 <i class="fa-solid fa-chart-pie"></i>
                 <span>Dashboard</span>
             </button>
@@ -88,13 +198,6 @@
 
         <!-- Right Side Controls -->
         <div class="flex items-center space-x-3">
-            <!-- Global Search Toggle / Input -->
-            <div class="relative hidden sm:block">
-                <input type="text" id="global-search" placeholder="Search courses, notes..." class="w-48 focus:w-64 transition-all duration-300 pl-9 pr-3 py-1.5 text-sm bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-200">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
-            </div>
-
-            <!-- Upload Quick Action -->
             <button onclick="openUploadModal()" class="px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center space-x-2">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
                 <span class="hidden sm:inline">Upload</span>
@@ -106,12 +209,12 @@
                 <i class="fa-solid fa-sun hidden dark:block text-amber-400 text-lg"></i>
             </button>
 
-            <!-- User Avatar -->
+            <!-- User Avatar & Sign Out -->
             <div class="flex items-center space-x-2 border-l border-slate-200 dark:border-slate-800 pl-3">
-                <img src="https://placehold.co/80x80/6366f1/ffffff?text=B" alt="Instructor Profile" class="w-9 h-9 rounded-full ring-2 ring-brand-500/30">
+                <div class="w-9 h-9 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-sm shadow-inner">👤</div>
                 <div class="hidden lg:block text-left">
-                    <p class="text-xs font-semibold leading-none text-slate-800 dark:text-slate-200">Boniface</p>
-                    <p class="text-[10px] text-slate-400 mt-0.5">Senior Data Analyst</p>
+                    <p id="user-display-name" class="text-xs font-semibold leading-none text-slate-800 dark:text-slate-200">Student</p>
+                    <button id="logout-btn" class="text-[10px] text-red-500 hover:underline mt-0.5">Sign Out</button>
                 </div>
             </div>
         </div>
@@ -119,7 +222,7 @@
 
     <!-- Mobile Bottom Navigation Bar -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around p-2 z-40">
-        <button onclick="switchTab('dashboard')" id="mob-nav-dashboard" class="mob-nav-btn flex flex-col items-center p-1 text-xs text-slate-500">
+        <button onclick="switchTab('dashboard')" id="mob-nav-dashboard" class="mob-nav-btn flex flex-col items-center p-1 text-xs text-brand-600">
             <i class="fa-solid fa-chart-pie text-base mb-1"></i>
             <span>Dashboard</span>
         </button>
@@ -144,10 +247,13 @@
         <section id="dashboard" class="tab-content active space-y-6">
             <!-- Welcome Header -->
             <div class="bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-8 translate-y-8 pointer-events-none">
+                    <img src="dativa_logo.png" alt="Logo background" class="h-64">
+                </div>
                 <div class="relative z-10">
                     <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur">Academic Year 2026/2027</span>
-                    <h1 class="text-2xl md:text-3xl font-bold mt-2">Welcome back, Boniface!</h1>
-                    <p class="text-indigo-100 text-sm md:text-base mt-1 max-w-2xl"><span class="font-semibold text-white">Senior Data Analyst</span> • You have 1 live class scheduled today for CS-402 Advanced Data Science. 24 new notes uploaded across your modules.</p>
+                    <h1 id="welcome-title" class="text-2xl md:text-3xl font-bold mt-2">Welcome to Dativa Research Consultancy!</h1>
+                    <p class="welcome-subline text-indigo-100 text-sm md:text-base mt-1 max-w-2xl">Subscription active • Access unlocked for advanced data analytics modules and live research sessions.</p>
                     
                     <div class="mt-4 flex flex-wrap gap-3">
                         <button onclick="switchTab('live-class')" class="bg-white text-brand-700 hover:bg-brand-50 px-4 py-2 rounded-xl text-sm font-semibold shadow transition">
@@ -158,7 +264,6 @@
                         </button>
                     </div>
                 </div>
-                <i class="fa-solid fa-graduation-cap absolute -right-6 -bottom-6 text-9xl text-white/10 pointer-events-none"></i>
             </div>
 
             <!-- Stats Overview Grid -->
@@ -167,7 +272,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Students</p>
-                            <h3 class="text-2xl font-bold mt-1">142</h3>
+                            <h3 id="stat-active-students" class="text-2xl font-bold mt-1">142</h3>
                         </div>
                         <span class="p-2 bg-blue-100 dark:bg-blue-900/40 text-blue-600 rounded-lg"><i class="fa-solid fa-user-graduate"></i></span>
                     </div>
@@ -178,11 +283,11 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Live Sessions</p>
-                            <h3 class="text-2xl font-bold mt-1">28 hrs</h3>
+                            <h3 id="stat-live-sessions" class="text-2xl font-bold mt-1">0 sessions</h3>
                         </div>
                         <span class="p-2 bg-purple-100 dark:bg-purple-900/40 text-purple-600 rounded-lg"><i class="fa-solid fa-video"></i></span>
                     </div>
-                    <p class="text-xs text-slate-500 mt-2">Next in 45 mins</p>
+                    <p class="text-xs text-slate-500 mt-2">Synced with Firestore</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
@@ -216,64 +321,49 @@
                         <h2 class="font-bold text-slate-900 dark:text-white flex items-center">
                             <i class="fa-solid fa-book-bookmark text-brand-500 mr-2"></i> Course Outline & Progress
                         </h2>
-                        <span class="text-xs text-slate-500">4 Active Modules</span>
+                        <span class="text-xs text-slate-500">6 Modules</span>
                     </div>
 
-                    <div class="space-y-3" id="course-outline-list">
-                        <!-- Module Item 1 -->
+                    <div class="space-y-3">
                         <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-300">Module 1</span>
-                                    <h4 class="font-semibold text-sm mt-1">Introduction to Machine Learning Models</h4>
+                                    <h4 class="font-semibold text-sm mt-1">Cost of Diet Software & NutriSurvey</h4>
                                 </div>
-                                <span class="text-xs text-slate-500">100% Completed</span>
-                            </div>
-                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-emerald-500 h-full w-full"></div>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                <span><i class="fa-solid fa-file text-slate-400 mr-1"></i> 4 Lecture Notes</span>
-                                <span><i class="fa-solid fa-video text-slate-400 mr-1"></i> 2 Recorded Videos</span>
+                                <span>Linear programming & nutrient modeling</span>
                                 <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
                             </div>
                         </div>
 
-                        <!-- Module Item 2 -->
                         <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300">Module 2</span>
-                                    <h4 class="font-semibold text-sm mt-1">Neural Networks & Deep Architectures</h4>
+                                    <h4 class="font-semibold text-sm mt-1">SPSS (Inferential Statistics)</h4>
                                 </div>
-                                <span class="text-xs text-slate-500">65% Completed</span>
-                            </div>
-                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-brand-500 h-full" style="width: 65%;"></div>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                <span><i class="fa-solid fa-file text-slate-400 mr-1"></i> 6 Lecture Notes</span>
-                                <span><i class="fa-solid fa-video text-slate-400 mr-1"></i> 3 Recorded Videos</span>
-                                <button onclick="switchTab('video-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">Watch Videos</button>
+                                <span>Logistic regression, Chi-square & ANOVA</span>
+                                <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
                             </div>
                         </div>
 
-                        <!-- Module Item 3 -->
                         <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300">Module 3</span>
-                                    <h4 class="font-semibold text-sm mt-1">Natural Language Processing with Transformers</h4>
+                                    <h4 class="font-semibold text-sm mt-1">Advanced Python & R Stata Workflows</h4>
                                 </div>
-                                <span class="text-xs text-slate-500">20% Completed</span>
-                            </div>
-                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-amber-500 h-full" style="width: 20%;"></div>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                <span><i class="fa-solid fa-file text-slate-400 mr-1"></i> 5 Lecture Notes</span>
-                                <span><i class="fa-solid fa-video text-slate-400 mr-1"></i> 1 Recorded Video</span>
-                                <button onclick="switchTab('live-class')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">Join Today's Live</button>
+                                <span>Pandas data wrangling & do-files</span>
+                                <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
                             </div>
                         </div>
                     </div>
@@ -289,30 +379,19 @@
                     </div>
 
                     <!-- Forum Messages -->
-                    <div id="forum-messages" class="flex-grow overflow-y-auto my-3 space-y-3 pr-1 text-sm">
-                        <div class="bg-slate-50 dark:bg-slate-900/70 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
-                            <div class="flex items-center justify-between">
-                                <span class="font-semibold text-xs text-slate-700 dark:text-slate-300">Alex Rivera</span>
-                                <span class="text-[10px] text-slate-400">10:14 AM</span>
-                            </div>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Could someone clarify slide #14 on backpropagation activation functions?</p>
-                        </div>
-
-                        <div class="bg-brand-50 dark:bg-brand-950/30 p-3 rounded-lg border border-brand-100 dark:border-brand-900/40">
-                            <div class="flex items-center justify-between">
-                                <span class="font-semibold text-xs text-brand-700 dark:text-brand-300">Boniface (Senior Data Analyst)</span>
-                                <span class="text-[10px] text-brand-400">10:20 AM</span>
-                            </div>
-                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Great question Alex! Check out Module 2 notes PDF, page 5 details the derivatives thoroughly.</p>
-                        </div>
+                    <div id="discussions-feed" class="flex-grow overflow-y-auto my-3 space-y-3 pr-1 text-xs">
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-center text-slate-400">Loading discussions...</div>
                     </div>
 
                     <!-- Message Input -->
-                    <form onsubmit="postForumMessage(event)" class="pt-2 border-t border-slate-100 dark:border-slate-700 flex gap-2">
-                        <input type="text" id="forum-input" placeholder="Ask a question or comment..." required class="flex-grow text-xs bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-200">
-                        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white px-3 py-2 rounded-lg text-xs font-semibold transition">
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
+                    <form id="discussion-post-form" class="pt-2 border-t border-slate-100 dark:border-slate-700 space-y-2">
+                        <input type="text" id="post-author" placeholder="Your Name" required class="w-full text-xs bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 text-slate-800 dark:text-slate-200">
+                        <div class="flex gap-2">
+                            <input type="text" id="post-text" placeholder="Type your question..." required class="flex-grow text-xs bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 text-slate-800 dark:text-slate-200">
+                            <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white px-3 py-2 rounded-lg text-xs font-semibold transition">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -320,138 +399,68 @@
 
         <!-- SECTION 2: LIVE ONLINE CLASS HUB -->
         <section id="live-class" class="tab-content space-y-4">
-            <!-- Room Controls Bar -->
             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-4 shadow-sm">
                 <div class="flex items-center space-x-3">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400">
                         <span class="w-2 h-2 mr-1.5 rounded-full bg-red-500 animate-pulse"></span> STREAM LIVE
                     </span>
-                    <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">CS-402: Advanced Neural Architectures</h2>
+                    <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">Dativa Live Classroom Session</h2>
                 </div>
 
                 <div class="flex items-center space-x-2">
-                    <button id="toggle-mic" onclick="toggleMic()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
+                    <button id="toggle-mic" onclick="toggleMic()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
                         <i class="fa-solid fa-microphone mr-1"></i> <span id="mic-text">Mute Mic</span>
                     </button>
-                    <button id="toggle-cam" onclick="toggleCam()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
+                    <button id="toggle-cam" onclick="toggleCam()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
                         <i class="fa-solid fa-video mr-1"></i> <span id="cam-text">Stop Cam</span>
                     </button>
-                    <button onclick="leaveRoom()" class="px-3.5 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-semibold shadow transition">
-                        <i class="fa-solid fa-phone-slash mr-1"></i> End Call
-                    </button>
+                    <a id="launch-live-btn" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow transition flex items-center space-x-1">
+                        <i class="fa-solid fa-external-link-alt mr-1"></i> Open Google Meet
+                    </a>
                 </div>
             </div>
 
-            <!-- Virtual Classroom Main Layout Grid -->
+            <!-- Virtual Classroom Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <!-- Video Feed & Interactive Whiteboard Area -->
                 <div class="lg:col-span-2 space-y-4">
-                    <!-- Video Stage -->
-                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden aspect-video shadow-lg border border-slate-800 flex items-center justify-center group">
-                        <!-- Simulated Instructor Stream -->
+                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden aspect-video shadow-lg border border-slate-800 flex items-center justify-center">
                         <div id="video-stream-box" class="w-full h-full relative flex items-center justify-center bg-slate-900">
                             <div class="text-center">
-                                <div class="w-24 h-24 mx-auto rounded-full bg-brand-600/30 border-2 border-brand-500 flex items-center justify-center text-white text-3xl font-bold animate-pulse">
-                                    B
-                                </div>
-                                <p class="text-slate-300 font-semibold text-sm mt-3">Boniface <span class="text-xs text-brand-400 font-normal">(Senior Data Analyst - Hosting Live)</span></p>
-                                <p class="text-slate-500 text-xs">Share Screen active below</p>
-                            </div>
-
-                            <!-- Screen share status badge -->
-                            <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur px-3 py-1 rounded-md border border-slate-700 text-white text-xs flex items-center space-x-2">
-                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                                <span>720p HD Stream</span>
-                            </div>
-
-                            <!-- Student View Overlay (Picture in Picture preview) -->
-                            <div class="absolute bottom-3 right-3 w-32 h-20 bg-slate-800 rounded-lg border border-slate-700 overflow-hidden shadow-xl flex items-center justify-center">
-                                <span class="text-[10px] text-slate-400">Student Cam (You)</span>
+                                <img src="dativa_logo.png" alt="Logo" class="h-16 mx-auto mb-3 opacity-80">
+                                <p class="text-slate-300 font-semibold text-sm">Dativa Research Consultancy <span class="text-xs text-brand-400 font-normal">(Live Stream)</span></p>
+                                <p class="text-slate-500 text-xs mt-1">Click above to open meeting room</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Interactive Whiteboard Canvas Block -->
+                    <!-- Interactive Whiteboard -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
                             <div class="flex items-center space-x-2">
                                 <i class="fa-solid fa-pen-ruler text-brand-500"></i>
                                 <h3 class="font-bold text-sm text-slate-900 dark:text-white">Live Whiteboard Canvas</h3>
                             </div>
-                            
-                            <!-- Drawing Toolbar Controls -->
                             <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
-                                <button onclick="setWBColor('#6366f1')" class="w-5 h-5 rounded-full bg-indigo-500 ring-2 ring-offset-1 ring-transparent focus:ring-slate-400" title="Indigo"></button>
-                                <button onclick="setWBColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500 ring-2 ring-offset-1 ring-transparent focus:ring-slate-400" title="Red"></button>
-                                <button onclick="setWBColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 ring-2 ring-offset-1 ring-transparent focus:ring-slate-400" title="Green"></button>
-                                <button onclick="setWBColor('#000000')" class="w-5 h-5 rounded-full bg-black ring-2 ring-offset-1 ring-transparent focus:ring-slate-400" title="Black"></button>
-                                <div class="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1"></div>
-                                <button onclick="clearWhiteboard()" class="px-2 py-1 text-xs bg-white dark:bg-slate-800 rounded text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700 shadow-sm">Clear</button>
+                                <button onclick="setWBColor('#6366f1')" class="w-5 h-5 rounded-full bg-indigo-500"></button>
+                                <button onclick="setWBColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500"></button>
+                                <button onclick="setWBColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500"></button>
+                                <button onclick="setWBColor('#000000')" class="w-5 h-5 rounded-full bg-black"></button>
+                                <button onclick="clearWhiteboard()" class="px-2 py-1 text-xs bg-white dark:bg-slate-800 rounded text-slate-600 dark:text-slate-300">Clear</button>
                             </div>
                         </div>
-
-                        <!-- Canvas element -->
                         <div class="w-full bg-slate-50 dark:bg-slate-950 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
                             <canvas id="live-whiteboard" height="260" class="w-full cursor-crosshair touch-none"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- Classroom Sidebar (Live Chat + Attendees) -->
+                <!-- Classroom Sidebar -->
                 <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col h-[640px]">
-                    <!-- Sidebar Tabs -->
-                    <div class="flex border-b border-slate-200 dark:border-slate-700">
-                        <button onclick="switchLiveSidebarTab('chat')" id="tab-live-chat" class="flex-1 py-3 text-xs font-bold text-brand-600 border-b-2 border-brand-600">
-                            Live Chat
-                        </button>
-                        <button onclick="switchLiveSidebarTab('attendees')" id="tab-live-attendees" class="flex-1 py-3 text-xs font-bold text-slate-500 border-b-2 border-transparent">
-                            Students (34)
-                        </button>
-                    </div>
-
-                    <!-- Chat Container -->
-                    <div id="live-chat-panel" class="flex-grow flex flex-col p-3 overflow-hidden">
-                        <div id="live-chat-messages" class="flex-grow overflow-y-auto space-y-3 text-xs pr-1">
-                            <div class="bg-slate-100 dark:bg-slate-900 p-2.5 rounded-lg">
-                                <span class="font-semibold text-brand-600">System Bot</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Welcome to the live session! Audio & Video recording is enabled.</p>
-                            </div>
-                            <div class="bg-slate-100 dark:bg-slate-900 p-2.5 rounded-lg">
-                                <span class="font-semibold text-slate-800 dark:text-slate-200">Marcus Vance</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Good morning Dr. Sarah!</p>
-                            </div>
-                        </div>
-
-                        <form onsubmit="sendLiveChatMessage(event)" class="mt-3 flex gap-2">
-                            <input type="text" id="live-chat-input" placeholder="Send a message..." required class="flex-grow text-xs bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 text-slate-800 dark:text-slate-200">
-                            <button type="submit" class="bg-brand-600 text-white px-3 py-2 rounded-lg text-xs font-semibold">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Attendees Container (Hidden by default) -->
-                    <div id="live-attendees-panel" class="hidden flex-grow p-3 overflow-y-auto space-y-2 text-xs">
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-6 h-6 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-[10px]">B</div>
-                                <span class="font-medium text-slate-800 dark:text-slate-200">Boniface (Host • Senior Data Analyst)</span>
-                            </div>
-                            <i class="fa-solid fa-microphone text-emerald-500"></i>
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-[10px]">MV</div>
-                                <span class="text-slate-700 dark:text-slate-300">Marcus Vance</span>
-                            </div>
-                            <i class="fa-solid fa-microphone-slash text-slate-400"></i>
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px]">AR</div>
-                                <span class="text-slate-700 dark:text-slate-300">Alex Rivera</span>
-                            </div>
-                            <i class="fa-solid fa-microphone-slash text-slate-400"></i>
+                    <div class="flex border-b border-slate-200 dark:border-slate-700 p-3 font-bold text-xs">Classroom Feed</div>
+                    <div id="live-chat-messages" class="flex-grow p-3 overflow-y-auto space-y-3 text-xs">
+                        <div class="bg-slate-100 dark:bg-slate-900 p-2.5 rounded-lg">
+                            <span class="font-semibold text-brand-600">Dativa System</span>
+                            <p class="text-slate-600 dark:text-slate-400 mt-0.5">Welcome to your live consultation session.</p>
                         </div>
                     </div>
                 </div>
@@ -460,570 +469,296 @@
 
         <!-- SECTION 3: NOTES & MATERIALS HUB -->
         <section id="notes-hub" class="tab-content space-y-6">
-            <!-- Header Controls & Filters -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                 <div>
                     <h2 class="text-lg font-bold text-slate-900 dark:text-white">Lecture Notes & Documents</h2>
                     <p class="text-xs text-slate-500">Access reading lists, slide decks, and downloadable course guides.</p>
                 </div>
-
                 <div class="flex flex-wrap items-center gap-2">
-                    <input type="text" id="notes-search-input" onkeyup="filterNotes()" placeholder="Filter materials..." class="text-xs px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg focus:ring-2 focus:ring-brand-500 w-40 sm:w-56 text-slate-800 dark:text-slate-200">
-                    <select id="notes-module-filter" onchange="filterNotes()" class="text-xs px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200">
-                        <option value="ALL">All Modules</option>
-                        <option value="Module 1">Module 1</option>
-                        <option value="Module 2">Module 2</option>
-                        <option value="Module 3">Module 3</option>
-                    </select>
+                    <input type="text" id="notes-search-input" onkeyup="filterNotes()" placeholder="Filter materials..." class="text-xs px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200 w-40 sm:w-56">
                     <button onclick="openUploadModal()" class="text-xs bg-brand-600 hover:bg-brand-700 text-white px-3 py-2 rounded-lg font-medium transition">
                         <i class="fa-solid fa-upload mr-1"></i> Add Document
                     </button>
                 </div>
             </div>
-
-            <!-- Notes List Grid -->
-            <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Dynamically populated via JS -->
-            </div>
+            <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </section>
 
         <!-- SECTION 4: VIDEO LECTURE LIBRARY -->
         <section id="video-hub" class="tab-content space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Video Player Container -->
                 <div class="lg:col-span-2 space-y-4">
-                    <div class="bg-black rounded-2xl overflow-hidden aspect-video shadow-xl relative group">
+                    <div class="bg-black rounded-2xl overflow-hidden aspect-video shadow-xl relative">
                         <video id="main-video-player" controls class="w-full h-full object-cover">
                             <source id="video-source" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-                            Your browser does not support HTML5 video.
                         </video>
                     </div>
-
-                    <!-- Video Meta Controls & Transcription Toggle -->
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
-                        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700">
-                            <div>
-                                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-300">CS-402 Lecture</span>
-                                <h2 id="active-video-title" class="text-lg font-bold text-slate-900 dark:text-white mt-1">Lecture 1: Intro to Neural Network Architectures</h2>
-                            </div>
-
-                            <!-- Speed Controller -->
-                            <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 p-1.5 rounded-lg text-xs">
-                                <span class="text-slate-500 font-medium ml-1">Speed:</span>
-                                <button onclick="setPlaybackSpeed(0.75)" class="px-2 py-1 rounded bg-white dark:bg-slate-800 font-medium hover:bg-brand-50 hover:text-brand-600 transition">0.75x</button>
-                                <button onclick="setPlaybackSpeed(1.0)" class="px-2 py-1 rounded bg-white dark:bg-slate-800 font-medium hover:bg-brand-50 hover:text-brand-600 transition">1.0x</button>
-                                <button onclick="setPlaybackSpeed(1.5)" class="px-2 py-1 rounded bg-white dark:bg-slate-800 font-medium hover:bg-brand-50 hover:text-brand-600 transition">1.5x</button>
-                                <button onclick="setPlaybackSpeed(2.0)" class="px-2 py-1 rounded bg-white dark:bg-slate-800 font-medium hover:bg-brand-50 hover:text-brand-600 transition">2.0x</button>
-                            </div>
-                        </div>
-
-                        <!-- Transcription Dropdown -->
-                        <div>
-                            <button onclick="toggleTranscription()" class="flex items-center justify-between w-full text-xs font-semibold text-slate-700 dark:text-slate-300 py-1">
-                                <span><i class="fa-solid fa-align-left text-brand-500 mr-2"></i> Auto-Generated Lecture Transcript</span>
-                                <i id="transcript-icon" class="fa-solid fa-chevron-down text-slate-400"></i>
-                            </button>
-                            <div id="transcript-box" class="hidden mt-3 p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl text-xs text-slate-600 dark:text-slate-400 space-y-2 max-h-48 overflow-y-auto leading-relaxed border border-slate-200/60 dark:border-slate-800">
-                                <p><span class="font-bold text-brand-600">[00:05]</span> Welcome class to today's topic on Artificial Neural Networks (ANN).</p>
-                                <p><span class="font-bold text-brand-600">[00:45]</span> Today we will analyze how perceptrons function as the base unit for multi-layer networks.</p>
-                                <p><span class="font-bold text-brand-600">[02:10]</span> Pay attention to backpropagation derivatives when updating layer weights during stochastic gradient descent.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Lecture Playlist Column -->
-                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col h-fit space-y-3">
-                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <span>Course Playlist</span>
-                        <span class="text-xs font-normal text-slate-400">4 Video Modules</span>
-                    </h3>
-
-                    <div id="video-playlist" class="space-y-2 max-h-[500px] overflow-y-auto">
-                        <!-- Playlist items generated dynamically -->
-                    </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white pb-2 border-b border-slate-100 dark:border-slate-700">Course Playlist</h3>
+                    <div id="video-playlist" class="space-y-2 mt-3"></div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- Upload Document / Video Modal -->
+    <!-- Upload Modal -->
     <div id="upload-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 animate-fadeIn">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
                 <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center">
                     <i class="fa-solid fa-cloud-arrow-up text-brand-500 mr-2"></i> Upload Lecture Material
                 </h3>
-                <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white text-sm">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
-
             <form onsubmit="handleUploadSubmit(event)" class="space-y-3 text-xs">
                 <div>
                     <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Title</label>
-                    <input type="text" id="upload-title" required placeholder="e.g. Chapter 4 Slide Deck" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-brand-500">
+                    <input type="text" id="upload-title" required placeholder="e.g. SPSS Analysis Guide" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
                 </div>
-
-                <div>
-                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Material Type</label>
-                    <select id="upload-type" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200">
-                        <option value="PDF Document">PDF / Lecture Note</option>
-                        <option value="Video Lecture">Video Recording (MP4)</option>
-                    </select>
-                </div>
-
                 <div>
                     <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Module Associated</label>
-                    <select id="upload-module" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200">
-                        <option value="Module 1">Module 1: Intro ML</option>
-                        <option value="Module 2">Module 2: Neural Networks</option>
-                        <option value="Module 3">Module 3: NLP Transformers</option>
+                    <select id="upload-module" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
+                        <option value="Module 1">Module 1: Cost of Diet</option>
+                        <option value="Module 2">Module 2: SPSS Statistics</option>
+                        <option value="Module 3">Module 3: Advanced Python & R</option>
                     </select>
                 </div>
-
-                <div>
-                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Select File</label>
-                    <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-4 text-center cursor-pointer hover:border-brand-500 transition">
-                        <i class="fa-solid fa-file-circle-plus text-2xl text-slate-400 mb-1"></i>
-                        <p class="text-slate-500">Click to choose PDF or MP4 video</p>
-                        <input type="file" id="upload-file" accept=".pdf,.mp4,.doc,.docx" required class="hidden" onchange="updateFileName(this)">
-                        <span id="selected-file-name" class="block text-brand-600 font-semibold mt-2"></span>
-                    </div>
-                </div>
-
                 <div class="pt-2 flex justify-end space-x-2">
-                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-200">Cancel</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium shadow">Upload Material</button>
+                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium shadow">Save</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Notification Toast Box -->
     <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
         <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-        <span id="toast-msg">Action completed successfully.</span>
+        <span id="toast-msg">Action completed.</span>
     </div>
 
-    <!-- App Logic Script -->
-    <script>
-        // Initial Mock Database State
-        const defaultNotes = [
-            { id: 1, title: 'Introduction to Supervised Learning', module: 'Module 1', type: 'PDF Document', date: '2026-10-12', size: '2.4 MB' },
-            { id: 2, title: 'Neural Networks Architecture Slides', module: 'Module 2', type: 'PDF Document', date: '2026-10-18', size: '5.1 MB' },
-            { id: 3, title: 'Transformers & Self-Attention Paper', module: 'Module 3', type: 'PDF Document', date: '2026-10-25', size: '1.8 MB' },
-            { id: 4, title: 'Gradient Descent Optimization Guide', module: 'Module 1', type: 'PDF Document', date: '2026-11-01', size: '3.0 MB' }
-        ];
+    <!-- Firebase SDK & Integration Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+        import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-        const defaultVideos = [
-            { id: 1, title: 'Lecture 1: Intro to Neural Network Architectures', duration: '12:40', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', module: 'Module 1' },
-            { id: 2, title: 'Lecture 2: Backpropagation Math Deep Dive', duration: '18:15', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', module: 'Module 2' },
-            { id: 3, title: 'Lecture 3: Convolutional Operations in Vision', duration: '22:05', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', module: 'Module 2' },
-            { id: 4, title: 'Lecture 4: Large Language Model Tokenization', duration: '15:50', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoylikes.mp4', module: 'Module 3' }
-        ];
-
-        // Global State initialization
-        let notesData = JSON.parse(localStorage.getItem('edupulse_notes')) || defaultNotes;
-        let videosData = JSON.parse(localStorage.getItem('edupulse_videos')) || defaultVideos;
-
-        // Whiteboard drawing variables
-        let canvas, ctx;
-        let isDrawing = false;
-        let strokeColor = '#6366f1';
-
-        // Room Controls State
-        let isMicMuted = false;
-        let isCamOff = false;
-
-        // Application Initialization
-        window.onload = function() {
-            renderNotes();
-            renderVideos();
-            initWhiteboard();
-            updateStats();
-            
-            // Allow drag and drop trigger for file upload helper
-            const dropArea = document.querySelector('#upload-modal .border-dashed');
-            dropArea.onclick = () => document.getElementById('upload-file').click();
+        const firebaseConfig = {
+            apiKey: "AIzaSyCtpu4IvkF9yDOY9TbudXGMAwZVrZs2Xck",
+            authDomain: "data-analytics-portal-cd545.firebaseapp.com",
+            projectId: "data-analytics-portal-cd545",
+            storageBucket: "data-analytics-portal-cd545.firebasestorage.app",
+            messagingSenderId: "242127530679",
+            appId: "1:242127530679:web:c5eebe52c4e9a9db017b32",
+            measurementId: "G-QB84Y1GCEB"
         };
 
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let activeMeetUrl = "";
+        let currentUserData = null;
+
+        // Time-based greeting logic
+        function updateDynamicGreeting(fullName) {
+            const hour = new Date().getHours();
+            let timeGreeting = "Welcome";
+
+            if (hour >= 5 && hour < 12) {
+                timeGreeting = "Good morning";
+            } else if (hour >= 12 && hour < 17) {
+                timeGreeting = "Good afternoon";
+            } else {
+                timeGreeting = "Good evening";
+            }
+
+            const nameParts = fullName ? fullName.trim().split(" ") : ["Student"];
+            const displayName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
+
+            const welcomeTitleEl = document.getElementById('welcome-title');
+            if (welcomeTitleEl) {
+                welcomeTitleEl.textContent = `${timeGreeting}, ${displayName}!`;
+            }
+        }
+
+        window.toggleAuthMode = function(isLogin) {
+            if (isLogin) {
+                document.getElementById('signup-container').classList.add('hidden');
+                document.getElementById('login-container').classList.remove('hidden');
+            } else {
+                document.getElementById('signup-container').classList.remove('hidden');
+                document.getElementById('login-container').classList.add('hidden');
+            }
+        };
+
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('auth-name').value.trim();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+
+            try {
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                const uid = userCred.user.uid;
+
+                await setDoc(doc(db, "users", uid), {
+                    name: name,
+                    email: email,
+                    isPaid: false,
+                    proofSubmitted: false,
+                    createdAt: serverTimestamp()
+                });
+
+                showPaymentInstructions();
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (err) {
+                alert("Login failed: " + err.message);
+            }
+        });
+
+        document.getElementById('proof-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const proof = document.getElementById('proof-text').value.trim();
+            const user = auth.currentUser;
+
+            if (user) {
+                try {
+                    await updateDoc(doc(db, "users", user.uid), {
+                        paymentProof: proof,
+                        proofSubmitted: true
+                    });
+                    document.getElementById('proof-form').classList.add('hidden');
+                    document.getElementById('pending-notice').classList.remove('hidden');
+                } catch (err) {
+                    alert("Failed to submit proof. Try again.");
+                }
+            }
+        });
+
+        function showPaymentInstructions() {
+            document.getElementById('signup-container').classList.add('hidden');
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('payment-instructions-container').classList.remove('hidden');
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            const paywallModal = document.getElementById('auth-paywall-modal');
+            if (user) {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    currentUserData = userDoc.data();
+                    updateDynamicGreeting(currentUserData.name);
+
+                    if (currentUserData.isPaid) {
+                        document.getElementById('user-display-name').textContent = currentUserData.name;
+                        paywallModal.classList.add('hidden');
+                        initDashboardListeners();
+                    } else {
+                        showPaymentInstructions();
+                        paywallModal.classList.remove('hidden');
+                        if (currentUserData.proofSubmitted) {
+                            document.getElementById('proof-form').classList.add('hidden');
+                            document.getElementById('pending-notice').classList.remove('hidden');
+                        }
+                    }
+                } else {
+                    paywallModal.classList.remove('hidden');
+                }
+            } else {
+                paywallModal.classList.remove('hidden');
+                document.getElementById('signup-container').classList.remove('hidden');
+                document.getElementById('payment-instructions-container').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth).then(() => location.reload()));
+        document.getElementById('modal-logout-btn').addEventListener('click', () => signOut(auth));
+
+        function initDashboardListeners() {
+            onSnapshot(collection(db, "students"), (snapshot) => {
+                const countEl = document.getElementById('stat-active-students');
+                if (countEl && snapshot.size > 0) countEl.textContent = snapshot.size;
+            });
+
+            onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
+                const sessionsEl = document.getElementById('stat-live-sessions');
+                if (sessionsEl) sessionsEl.textContent = `${snapshot.size} sessions`;
+                if (!snapshot.empty) {
+                    const latest = snapshot.docs[0].data();
+                    let url = latest.meetUrl?.trim() || "";
+                    if (url && !url.startsWith('http')) url = 'https://' + url;
+                    activeMeetUrl = url;
+                    document.getElementById('launch-live-btn').href = activeMeetUrl;
+                }
+            });
+
+            onSnapshot(collection(db, "materials"), (snapshot) => {
+                const filesEl = document.getElementById('stat-file-count');
+                if (filesEl) filesEl.textContent = snapshot.size + 15;
+            });
+
+            document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = document.getElementById('post-text').value.trim();
+                const author = document.getElementById('post-author').value.trim() || currentUserData.name;
+                await addDoc(collection(db, "discussions"), { author, text, createdAt: serverTimestamp() });
+                document.getElementById('post-text').value = '';
+            });
+
+            onSnapshot(query(collection(db, "discussions"), orderBy("createdAt", "desc")), (snapshot) => {
+                const feed = document.getElementById('discussions-feed');
+                feed.innerHTML = snapshot.empty ? `<div class="p-3 text-xs text-slate-400 text-center">No posts yet.</div>` : "";
+                snapshot.forEach(d => {
+                    const p = d.data();
+                    feed.innerHTML += `<div class="p-2.5 bg-slate-50 dark:bg-slate-900 rounded-lg text-xs"><span class="font-semibold text-brand-600">${p.author}:</span> ${p.text}</div>`;
+                });
+            });
+        }
+    </script>
+
+    <script>
         // Tab Switcher Controller
         function switchTab(tabId) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            
-            // Show active tab
             document.getElementById(tabId).classList.add('active');
 
-            // Update top bar navigation styles
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-brand-600', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
             });
             const activeNavBtn = document.getElementById(`nav-${tabId}`);
-            if (activeNavBtn) {
-                activeNavBtn.classList.add('text-brand-600', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
-            }
+            if (activeNavBtn) activeNavBtn.classList.add('text-brand-600', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
 
-            // Update mobile navbar styles
             document.querySelectorAll('.mob-nav-btn').forEach(btn => btn.classList.remove('text-brand-600'));
             const activeMobBtn = document.getElementById(`mob-nav-${tabId}`);
             if (activeMobBtn) activeMobBtn.classList.add('text-brand-600');
-
-            // Resize Whiteboard Canvas if switching to live class tab
-            if (tabId === 'live-class') {
-                setTimeout(resizeCanvas, 100);
-            }
         }
 
-        // Theme Toggle Handler
         function toggleDarkMode() {
             const html = document.documentElement;
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                html.classList.add('light');
-            } else {
-                html.classList.remove('light');
-                html.classList.add('dark');
-            }
+            html.classList.toggle('dark');
+            html.classList.toggle('light');
         }
 
-        // SECTION 1: FORUM LOGIC
-        function postForumMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('forum-input');
-            const msg = input.value.trim();
-            if (!msg) return;
-
-            const container = document.getElementById('forum-messages');
-            const msgElem = document.createElement('div');
-            msgElem.className = 'bg-brand-50 dark:bg-brand-950/30 p-3 rounded-lg border border-brand-100 dark:border-brand-900/40';
-            msgElem.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <span class="font-semibold text-xs text-brand-700 dark:text-brand-300">Boniface (Senior Data Analyst)</span>
-                    <span class="text-[10px] text-brand-400">Just now</span>
-                </div>
-                <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">${escapeHtml(msg)}</p>
-            `;
-            container.appendChild(msgElem);
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
-            showToast('Question posted to forum');
-        }
-
-        // SECTION 2: LIVE CLASSROOM & WHITEBOARD
-        function initWhiteboard() {
-            canvas = document.getElementById('live-whiteboard');
-            ctx = canvas.getContext('2d');
-            resizeCanvas();
-
-            // Event Listeners for Drawing
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseleave', stopDrawing);
-
-            // Touch Support for mobile
-            canvas.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                startDrawing(touch);
-            });
-            canvas.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                draw(touch);
-            });
-            canvas.addEventListener('touchend', stopDrawing);
-        }
-
-        function resizeCanvas() {
-            if (!canvas) return;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = 260;
-        }
-
-        function setWBColor(color) {
-            strokeColor = color;
-        }
-
-        function clearWhiteboard() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            showToast('Whiteboard canvas cleared');
-        }
-
-        function startDrawing(e) {
-            isDrawing = true;
-            const rect = canvas.getBoundingClientRect();
-            ctx.beginPath();
-            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-        }
-
-        function draw(e) {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = 3;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = strokeColor;
-            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-            ctx.stroke();
-        }
-
-        function stopDrawing() {
-            isDrawing = false;
-        }
-
-        function toggleMic() {
-            isMicMuted = !isMicMuted;
-            document.getElementById('mic-text').innerText = isMicMuted ? 'Unmute Mic' : 'Mute Mic';
-            showToast(isMicMuted ? 'Microphone muted' : 'Microphone enabled');
-        }
-
-        function toggleCam() {
-            isCamOff = !isCamOff;
-            document.getElementById('cam-text').innerText = isCamOff ? 'Start Cam' : 'Stop Cam';
-            document.getElementById('video-stream-box').style.opacity = isCamOff ? '0.3' : '1';
-            showToast(isCamOff ? 'Camera stream stopped' : 'Camera stream active');
-        }
-
-        function leaveRoom() {
-            showToast('Disconnected from live room session');
-            switchTab('dashboard');
-        }
-
-        function switchLiveSidebarTab(tab) {
-            const chatPanel = document.getElementById('live-chat-panel');
-            const attendeesPanel = document.getElementById('live-attendees-panel');
-            const chatBtn = document.getElementById('tab-live-chat');
-            const attBtn = document.getElementById('tab-live-attendees');
-
-            if (tab === 'chat') {
-                chatPanel.classList.remove('hidden');
-                attendeesPanel.classList.add('hidden');
-                chatBtn.className = "flex-1 py-3 text-xs font-bold text-brand-600 border-b-2 border-brand-600";
-                attBtn.className = "flex-1 py-3 text-xs font-bold text-slate-500 border-b-2 border-transparent";
-            } else {
-                chatPanel.classList.add('hidden');
-                attendeesPanel.classList.remove('hidden');
-                attBtn.className = "flex-1 py-3 text-xs font-bold text-brand-600 border-b-2 border-brand-600";
-                chatBtn.className = "flex-1 py-3 text-xs font-bold text-slate-500 border-b-2 border-transparent";
-            }
-        }
-
-        function sendLiveChatMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('live-chat-input');
-            const val = input.value.trim();
-            if (!val) return;
-
-            const container = document.getElementById('live-chat-messages');
-            const msgElem = document.createElement('div');
-            msgElem.className = 'bg-slate-100 dark:bg-slate-900 p-2.5 rounded-lg';
-            msgElem.innerHTML = `
-                <span class="font-semibold text-brand-600">Boniface (Senior Data Analyst)</span>
-                <p class="text-slate-600 dark:text-slate-400 mt-0.5">${escapeHtml(val)}</p>
-            `;
-            container.appendChild(msgElem);
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // SECTION 3: NOTES HUB RENDERER
-        function renderNotes() {
-            const grid = document.getElementById('notes-grid');
-            grid.innerHTML = '';
-
-            notesData.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'note-card bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between hover:border-brand-500/50 transition';
-                card.setAttribute('data-module', item.module);
-                card.setAttribute('data-title', item.title.toLowerCase());
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-300">${item.module}</span>
-                            <span class="text-[10px] text-slate-400">${item.date}</span>
-                        </div>
-                        <h4 class="font-semibold text-sm mt-3 text-slate-900 dark:text-white line-clamp-2">${escapeHtml(item.title)}</h4>
-                    </div>
-
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs">
-                        <span class="text-slate-500"><i class="fa-solid fa-file-pdf text-red-500 mr-1"></i> ${item.size || '3.2 MB'}</span>
-                        <button onclick="downloadDocument('${escapeHtml(item.title)}')" class="text-brand-600 hover:text-brand-700 dark:text-brand-400 font-semibold flex items-center gap-1">
-                            <i class="fa-solid fa-download"></i> Download
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function filterNotes() {
-            const query = document.getElementById('notes-search-input').value.toLowerCase();
-            const selectedModule = document.getElementById('notes-module-filter').value;
-            const cards = document.querySelectorAll('.note-card');
-
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title');
-                const module = card.getAttribute('data-module');
-
-                const matchesQuery = title.includes(query);
-                const matchesModule = (selectedModule === 'ALL') || (module === selectedModule);
-
-                if (matchesQuery && matchesModule) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function downloadDocument(title) {
-            showToast(`Downloading: ${title}`);
-        }
-
-        // SECTION 4: VIDEO PLAYER & PLAYLIST
-        function renderVideos() {
-            const playlist = document.getElementById('video-playlist');
-            playlist.innerHTML = '';
-
-            videosData.forEach((v, index) => {
-                const item = document.createElement('div');
-                item.className = `p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition flex items-center space-x-3 ${index === 0 ? 'bg-brand-50/50 border-brand-500 dark:bg-brand-950/20' : ''}`;
-                item.onclick = () => playVideo(v, item);
-
-                item.innerHTML = `
-                    <div class="w-10 h-10 rounded-lg bg-brand-600/10 text-brand-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                        <i class="fa-solid fa-play"></i>
-                    </div>
-                    <div class="flex-grow min-w-0">
-                        <h4 class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">${escapeHtml(v.title)}</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">${v.module} • ${v.duration}</p>
-                    </div>
-                `;
-                playlist.appendChild(item);
-            });
-        }
-
-        function playVideo(video, element) {
-            const player = document.getElementById('main-video-player');
-            const source = document.getElementById('video-source');
-            const title = document.getElementById('active-video-title');
-
-            source.src = video.src;
-            player.load();
-            player.play();
-            title.innerText = video.title;
-
-            // Highlight active playlist item
-            document.querySelectorAll('#video-playlist > div').forEach(el => {
-                el.classList.remove('bg-brand-50/50', 'border-brand-500', 'dark:bg-brand-950/20');
-            });
-            if (element) {
-                element.classList.add('bg-brand-50/50', 'border-brand-500', 'dark:bg-brand-950/20');
-            }
-
-            showToast(`Now Playing: ${video.title}`);
-        }
-
-        function setPlaybackSpeed(speed) {
-            const player = document.getElementById('main-video-player');
-            player.playbackRate = speed;
-            showToast(`Playback speed set to ${speed}x`);
-        }
-
-        function toggleTranscription() {
-            const box = document.getElementById('transcript-box');
-            const icon = document.getElementById('transcript-icon');
-            box.classList.toggle('hidden');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-        }
-
-        // MODAL & DYNAMIC UPLOAD SIMULATION
-        function openUploadModal() {
-            document.getElementById('upload-modal').classList.remove('hidden');
-        }
-
-        function closeUploadModal() {
-            document.getElementById('upload-modal').classList.add('hidden');
-        }
-
-        function updateFileName(input) {
-            const nameContainer = document.getElementById('selected-file-name');
-            if (input.files && input.files[0]) {
-                nameContainer.innerText = input.files[0].name;
-            }
-        }
-
-        function handleUploadSubmit(e) {
-            e.preventDefault();
-            const title = document.getElementById('upload-title').value.trim();
-            const type = document.getElementById('upload-type').value;
-            const module = document.getElementById('upload-module').value;
-
-            if (type === 'PDF Document') {
-                const newNote = {
-                    id: Date.now(),
-                    title: title,
-                    module: module,
-                    type: 'PDF Document',
-                    date: new Date().toISOString().split('T')[0],
-                    size: '4.5 MB'
-                };
-                notesData.unshift(newNote);
-                localStorage.setItem('edupulse_notes', JSON.stringify(notesData));
-                renderNotes();
-                switchTab('notes-hub');
-            } else {
-                const newVideo = {
-                    id: Date.now(),
-                    title: title,
-                    duration: '10:00',
-                    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-                    module: module
-                };
-                videosData.unshift(newVideo);
-                localStorage.setItem('edupulse_videos', JSON.stringify(videosData));
-                renderVideos();
-                switchTab('video-hub');
-            }
-
-            updateStats();
-            closeUploadModal();
-            showToast('File uploaded and published to classroom!');
-            
-            // Reset form
-            e.target.reset();
-            document.getElementById('selected-file-name').innerText = '';
-        }
-
-        function updateStats() {
-            document.getElementById('stat-file-count').innerText = notesData.length + videosData.length;
-        }
-
-        // UTILITY: Toast Notification System
+        function openUploadModal() { document.getElementById('upload-modal').classList.remove('hidden'); }
+        function closeUploadModal() { document.getElementById('upload-modal').classList.add('hidden'); }
+        
         function showToast(message) {
             const toast = document.getElementById('toast');
-            const msgSpan = document.getElementById('toast-msg');
-            msgSpan.innerText = message;
+            document.getElementById('toast-msg').innerText = message;
             toast.classList.remove('translate-y-20', 'opacity-0');
-            
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        // UTILITY: Security Helper
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;")
-                       .replace(/</g, "&lt;")
-                       .replace(/>/g, "&gt;")
-                       .replace(/"/g, "&quot;")
-                       .replace(/'/g, "&#039;");
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
         }
     </script>
 </body>
