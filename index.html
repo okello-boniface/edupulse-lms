@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPulse LMS - Data Analytics & Learning Hub</title>
+    <title>Dativa Research Consultancy - Data Analytics & Learning Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,9 +21,9 @@
             <div id="signup-container">
                 <div class="text-center space-y-2 mb-6">
                     <div class="bg-indigo-600 text-white w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-md">
-                        🎓
+                        📊
                     </div>
-                    <h2 class="text-2xl font-extrabold text-gray-900">EduPulse Hub Access</h2>
+                    <h2 class="text-2xl font-extrabold text-gray-900">Dativa Portal Access</h2>
                     <p class="text-xs text-gray-500">Create your account to begin your subscription enrollment.</p>
                 </div>
 
@@ -56,7 +56,7 @@
             <div id="login-container" class="hidden">
                 <div class="text-center space-y-2 mb-6">
                     <div class="bg-indigo-600 text-white w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-md">
-                        🎓
+                        📊
                     </div>
                     <h2 class="text-2xl font-extrabold text-gray-900">Welcome Back</h2>
                     <p class="text-xs text-gray-500">Sign in to access your dashboard.</p>
@@ -137,11 +137,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="bg-indigo-600 text-white p-2 rounded-xl flex items-center justify-center font-bold text-xl shadow-md">
-                    🎓
+                    📊
                 </div>
                 <div>
-                    <span class="text-xl font-bold tracking-tight text-gray-900">EduPulse</span>
-                    <span class="ml-1.5 px-2 py-0.5 text-xs font-semibold bg-indigo-50 text-indigo-600 rounded-full border border-indigo-100">Hub</span>
+                    <span class="text-lg sm:text-xl font-bold tracking-tight text-gray-900">Dativa</span>
+                    <span class="ml-1 px-2 py-0.5 text-xs font-semibold bg-indigo-50 text-indigo-600 rounded-full border border-indigo-100 hidden sm:inline-block">Research Consultancy</span>
                 </div>
             </div>
             
@@ -170,13 +170,13 @@
         <!-- Welcome Banner -->
         <section class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
             <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-8 translate-y-8 pointer-events-none">
-                <span class="text-9xl">🎓</span>
+                <span class="text-9xl">📊</span>
             </div>
             <div class="relative z-10 max-w-2xl space-y-4">
                 <span class="px-3 py-1 rounded-full bg-indigo-500 bg-opacity-40 text-indigo-100 text-xs font-medium uppercase tracking-wider border border-indigo-400 border-opacity-30">
                     Academic Year 2026/2027
                 </span>
-                <h1 id="welcome-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome to EduPulse Hub!</h1>
+                <h1 id="welcome-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight">Welcome to Dativa Research Consultancy!</h1>
                 <p class="welcome-subline text-indigo-100 text-sm sm:text-base leading-relaxed">
                     Subscription active • Access unlocked for advanced data analytics modules and live research sessions.
                 </p>
@@ -327,7 +327,7 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 mt-auto py-6">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500">
-            &copy; 2026 EduPulse Learning Management System. Powered by GitHub Pages & Cloud Firestore.
+            &copy; 2026 Dativa Research Consultancy. Powered by GitHub Pages & Cloud Firestore.
         </div>
     </footer>
 
@@ -354,7 +354,6 @@
         let activeMeetUrl = "";
         let currentUserData = null;
 
-        // Function to update the welcome greeting dynamically based on current time and user's name
         function updateDynamicGreeting(fullName) {
             const hour = new Date().getHours();
             let timeGreeting = "Welcome";
@@ -367,8 +366,6 @@
                 timeGreeting = "Good evening";
             }
 
-            // Extract the first name or use the full name if preferred
-            // e.g., "Boniface" from "Okello Boniface"
             const nameParts = fullName ? fullName.trim().split(" ") : ["Student"];
             const displayName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
 
@@ -484,7 +481,6 @@
                 if (userDoc.exists()) {
                     currentUserData = userDoc.data();
                     
-                    // Trigger the time-based greeting using the user's registered name
                     updateDynamicGreeting(currentUserData.name);
 
                     if (currentUserData.isPaid) {
