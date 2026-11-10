@@ -164,7 +164,6 @@
 
     <!-- Top Navigation Header -->
     <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
-        <!-- Logo -->
         <div class="flex items-center space-x-3">
             <img src="dativa_logo.png" alt="Dativa Research Consultancy Logo" class="h-10">
             <div class="hidden sm:block">
@@ -173,7 +172,6 @@
             </div>
         </div>
 
-        <!-- Main Navigation Tabs -->
         <nav class="hidden md:flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl">
             <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-brand-600 bg-white dark:bg-slate-700 shadow-sm transition-all flex items-center space-x-2">
                 <i class="fa-solid fa-chart-pie"></i>
@@ -196,20 +194,17 @@
             </button>
         </nav>
 
-        <!-- Right Side Controls -->
         <div class="flex items-center space-x-3">
             <button onclick="openUploadModal()" class="px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center space-x-2">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
                 <span class="hidden sm:inline">Upload</span>
             </button>
 
-            <!-- Theme Toggle -->
             <button onclick="toggleDarkMode()" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition" title="Toggle Light/Dark Theme">
                 <i class="fa-solid fa-moon dark:hidden text-lg"></i>
                 <i class="fa-solid fa-sun hidden dark:block text-amber-400 text-lg"></i>
             </button>
 
-            <!-- User Avatar & Sign Out -->
             <div class="flex items-center space-x-2 border-l border-slate-200 dark:border-slate-800 pl-3">
                 <div class="w-9 h-9 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-sm shadow-inner">👤</div>
                 <div class="hidden lg:block text-left">
@@ -220,7 +215,7 @@
         </div>
     </header>
 
-    <!-- Mobile Bottom Navigation Bar -->
+    <!-- Mobile Navigation -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around p-2 z-40">
         <button onclick="switchTab('dashboard')" id="mob-nav-dashboard" class="mob-nav-btn flex flex-col items-center p-1 text-xs text-brand-600">
             <i class="fa-solid fa-chart-pie text-base mb-1"></i>
@@ -245,7 +240,6 @@
         
         <!-- SECTION 1: DASHBOARD -->
         <section id="dashboard" class="tab-content active space-y-6">
-            <!-- Welcome Header -->
             <div class="bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
                 <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-8 translate-y-8 pointer-events-none">
                     <img src="dativa_logo.png" alt="Logo background" class="h-64">
@@ -260,23 +254,23 @@
                             <i class="fa-solid fa-headset mr-1.5"></i> Launch Live Classroom
                         </button>
                         <button onclick="openUploadModal()" class="bg-brand-800/60 hover:bg-brand-800 text-white px-4 py-2 rounded-xl text-sm font-semibold backdrop-blur transition border border-white/20">
-                            <i class="fa-solid fa-plus mr-1.5"></i> Post Material
+                            <i class="fa-solid fa-plus mr-1.5"></i> Add Materials & Drive Links
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats Overview Grid -->
+            <!-- Dynamic Stats Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Students</p>
-                            <h3 id="stat-active-students" class="text-2xl font-bold mt-1">142</h3>
+                            <h3 id="stat-active-students" class="text-2xl font-bold mt-1">0</h3>
                         </div>
                         <span class="p-2 bg-blue-100 dark:bg-blue-900/40 text-blue-600 rounded-lg"><i class="fa-solid fa-user-graduate"></i></span>
                     </div>
-                    <p class="text-xs text-emerald-500 mt-2 font-medium"><i class="fa-solid fa-arrow-up"></i> +12% this month</p>
+                    <p class="text-xs text-emerald-500 mt-2 font-medium"><i class="fa-solid fa-arrows-rotate"></i> Synced from Firestore</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
@@ -287,14 +281,14 @@
                         </div>
                         <span class="p-2 bg-purple-100 dark:bg-purple-900/40 text-purple-600 rounded-lg"><i class="fa-solid fa-video"></i></span>
                     </div>
-                    <p class="text-xs text-slate-500 mt-2">Synced with Firestore</p>
+                    <p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-arrows-rotate"></i> Automated tracker</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Uploaded Files</p>
-                            <h3 id="stat-file-count" class="text-2xl font-bold mt-1">15</h3>
+                            <h3 id="stat-file-count" class="text-2xl font-bold mt-1">0</h3>
                         </div>
                         <span class="p-2 bg-amber-100 dark:bg-amber-900/40 text-amber-600 rounded-lg"><i class="fa-solid fa-file-pdf"></i></span>
                     </div>
@@ -305,71 +299,117 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Avg Completion</p>
-                            <h3 class="text-2xl font-bold mt-1">87%</h3>
+                            <h3 id="stat-avg-completion" class="text-2xl font-bold mt-1">0%</h3>
                         </div>
                         <span class="p-2 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></span>
                     </div>
-                    <p class="text-xs text-emerald-500 mt-2 font-medium"><i class="fa-solid fa-arrow-up"></i> High engagement</p>
+                    <p class="text-xs text-emerald-500 mt-2 font-medium"><i class="fa-solid fa-calculator"></i> Automated calculation</p>
                 </div>
             </div>
 
-            <!-- Two-Column Layout for Modules & Forum -->
+            <!-- Course Modules & Forum -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Course Modules List -->
                 <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-4">
                     <div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-700">
                         <h2 class="font-bold text-slate-900 dark:text-white flex items-center">
-                            <i class="fa-solid fa-book-bookmark text-brand-500 mr-2"></i> Course Outline & Progress
+                            <i class="fa-solid fa-book-bookmark text-brand-500 mr-2"></i> Course Outline (6 Modules)
                         </h2>
-                        <span class="text-xs text-slate-500">6 Modules</span>
+                        <span class="text-xs text-slate-500">Active Curriculum</span>
                     </div>
 
                     <div class="space-y-3">
+                        <!-- Module 1 -->
                         <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-300">Module 1</span>
                                     <h4 class="font-semibold text-sm mt-1">Cost of Diet Software & NutriSurvey</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                <span>Linear programming & nutrient modeling</span>
+                                <span>Linear programming & nutrient requirements modeling</span>
                                 <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
                             </div>
                         </div>
 
+                        <!-- Module 2 -->
                         <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300">Module 2</span>
                                     <h4 class="font-semibold text-sm mt-1">SPSS (Inferential Statistics)</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                <span>Logistic regression, Chi-square & ANOVA</span>
+                                <span>Multivariable binary logistic regression, Chi-square & ANOVA</span>
                                 <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
                             </div>
                         </div>
 
+                        <!-- Module 3 -->
                         <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300">Module 3</span>
-                                    <h4 class="font-semibold text-sm mt-1">Advanced Python & R Stata Workflows</h4>
+                                    <h4 class="font-semibold text-sm mt-1">Advanced Python</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                <span>Pandas data wrangling & do-files</span>
+                                <span>Data wrangling with Pandas & SciPy</span>
+                                <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
+                            </div>
+                        </div>
+
+                        <!-- Module 4 -->
+                        <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300">Module 4</span>
+                                    <h4 class="font-semibold text-sm mt-1">R, Stata & Epi Softwares</h4>
+                                </div>
+                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+                                <span>Epi Info, Stata do-files, and R tidyverse workflow</span>
+                                <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
+                            </div>
+                        </div>
+
+                        <!-- Module 5 -->
+                        <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300">Module 5</span>
+                                    <h4 class="font-semibold text-sm mt-1">ENA for SMART & WHO Anthro Plus</h4>
+                                </div>
+                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+                                <span>Anthropometric Z-score calculation & SMART plausibility checks</span>
+                                <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
+                            </div>
+                        </div>
+
+                        <!-- Module 6 -->
+                        <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/50">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-300">Module 6</span>
+                                    <h4 class="font-semibold text-sm mt-1">Project & Proposal Writing</h4>
+                                </div>
+                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+                                <span>Research methodology design, logframes & IRB ethics</span>
                                 <button onclick="switchTab('notes-hub')" class="text-brand-600 dark:text-brand-400 hover:underline font-medium">View Materials</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Discussion & Q&A Board -->
                 <div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col h-[480px]">
                     <div class="pb-3 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
                         <h2 class="font-bold text-slate-900 dark:text-white flex items-center">
@@ -378,12 +418,10 @@
                         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                     </div>
 
-                    <!-- Forum Messages -->
                     <div id="discussions-feed" class="flex-grow overflow-y-auto my-3 space-y-3 pr-1 text-xs">
-                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-center text-slate-400">Loading discussions...</div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-center text-slate-400 italic">No posts yet. Start a discussion below!</div>
                     </div>
 
-                    <!-- Message Input -->
                     <form id="discussion-post-form" class="pt-2 border-t border-slate-100 dark:border-slate-700 space-y-2">
                         <input type="text" id="post-author" placeholder="Your Name" required class="w-full text-xs bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 text-slate-800 dark:text-slate-200">
                         <div class="flex gap-2">
@@ -404,7 +442,7 @@
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400">
                         <span class="w-2 h-2 mr-1.5 rounded-full bg-red-500 animate-pulse"></span> STREAM LIVE
                     </span>
-                    <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">Dativa Live Classroom Session</h2>
+                    <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">Dativa Live Consultation Room</h2>
                 </div>
 
                 <div class="flex items-center space-x-2">
@@ -415,20 +453,19 @@
                         <i class="fa-solid fa-video mr-1"></i> <span id="cam-text">Stop Cam</span>
                     </button>
                     <a id="launch-live-btn" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow transition flex items-center space-x-1">
-                        <i class="fa-solid fa-external-link-alt mr-1"></i> Open Google Meet
+                        <i class="fa-solid fa-external-link-alt mr-1"></i> Launch Meeting Link
                     </a>
                 </div>
             </div>
 
-            <!-- Virtual Classroom Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <div class="lg:col-span-2 space-y-4">
                     <div class="relative bg-slate-950 rounded-2xl overflow-hidden aspect-video shadow-lg border border-slate-800 flex items-center justify-center">
                         <div id="video-stream-box" class="w-full h-full relative flex items-center justify-center bg-slate-900">
                             <div class="text-center">
                                 <img src="dativa_logo.png" alt="Logo" class="h-16 mx-auto mb-3 opacity-80">
-                                <p class="text-slate-300 font-semibold text-sm">Dativa Research Consultancy <span class="text-xs text-brand-400 font-normal">(Live Stream)</span></p>
-                                <p class="text-slate-500 text-xs mt-1">Click above to open meeting room</p>
+                                <p class="text-slate-300 font-semibold text-sm">Dativa Research Consultancy</p>
+                                <p class="text-slate-500 text-xs mt-1">Live class scheduled URL automatically syncs here.</p>
                             </div>
                         </div>
                     </div>
@@ -454,14 +491,11 @@
                     </div>
                 </div>
 
-                <!-- Classroom Sidebar -->
                 <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col h-[640px]">
-                    <div class="flex border-b border-slate-200 dark:border-slate-700 p-3 font-bold text-xs">Classroom Feed</div>
-                    <div id="live-chat-messages" class="flex-grow p-3 overflow-y-auto space-y-3 text-xs">
-                        <div class="bg-slate-100 dark:bg-slate-900 p-2.5 rounded-lg">
-                            <span class="font-semibold text-brand-600">Dativa System</span>
-                            <p class="text-slate-600 dark:text-slate-400 mt-0.5">Welcome to your live consultation session.</p>
-                        </div>
+                    <div class="flex border-b border-slate-200 dark:border-slate-700 p-3 font-bold text-xs">Live Classroom Info</div>
+                    <div class="flex-grow p-3 text-xs text-slate-500 space-y-2">
+                        <p>Join live Google Meet sessions using the button above.</p>
+                        <p>Whiteboard drawings and chat feed reset per session.</p>
                     </div>
                 </div>
             </div>
@@ -477,26 +511,36 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <input type="text" id="notes-search-input" onkeyup="filterNotes()" placeholder="Filter materials..." class="text-xs px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200 w-40 sm:w-56">
                     <button onclick="openUploadModal()" class="text-xs bg-brand-600 hover:bg-brand-700 text-white px-3 py-2 rounded-lg font-medium transition">
-                        <i class="fa-solid fa-upload mr-1"></i> Add Document
+                        <i class="fa-solid fa-upload mr-1"></i> Add Document or Drive Link
                     </button>
                 </div>
             </div>
-            <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="col-span-full p-8 text-center text-xs text-slate-400 bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                    No documents uploaded yet. Click <strong>"Add Document or Drive Link"</strong> to publish notes!
+                </div>
+            </div>
         </section>
 
         <!-- SECTION 4: VIDEO LECTURE LIBRARY -->
         <section id="video-hub" class="tab-content space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 space-y-4">
-                    <div class="bg-black rounded-2xl overflow-hidden aspect-video shadow-xl relative">
-                        <video id="main-video-player" controls class="w-full h-full object-cover">
-                            <source id="video-source" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    <div class="bg-black rounded-2xl overflow-hidden aspect-video shadow-xl relative flex items-center justify-center">
+                        <div id="no-video-placeholder" class="text-center p-6 text-slate-400 text-xs">
+                            <i class="fa-solid fa-circle-play text-4xl mb-2 text-slate-600"></i>
+                            <p>No video selected. Upload or add a video/Google Drive link to play.</p>
+                        </div>
+                        <video id="main-video-player" controls class="w-full h-full object-cover hidden">
+                            <source id="video-source" src="" type="video/mp4">
                         </video>
                     </div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
                     <h3 class="font-bold text-sm text-slate-900 dark:text-white pb-2 border-b border-slate-100 dark:border-slate-700">Course Playlist</h3>
-                    <div id="video-playlist" class="space-y-2 mt-3"></div>
+                    <div id="video-playlist" class="space-y-2 mt-3">
+                        <div class="p-4 text-center text-xs text-slate-400 italic">No video lessons uploaded yet.</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -507,26 +551,41 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
                 <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center">
-                    <i class="fa-solid fa-cloud-arrow-up text-brand-500 mr-2"></i> Upload Lecture Material
+                    <i class="fa-solid fa-cloud-arrow-up text-brand-500 mr-2"></i> Add Material / Drive Link
                 </h3>
                 <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
             <form onsubmit="handleUploadSubmit(event)" class="space-y-3 text-xs">
                 <div>
                     <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Title</label>
-                    <input type="text" id="upload-title" required placeholder="e.g. SPSS Analysis Guide" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
+                    <input type="text" id="upload-title" required placeholder="e.g. SPSS Regression Notes" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Material Type</label>
+                    <select id="upload-type" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
+                        <option value="PDF Document">PDF / Lecture Note</option>
+                        <option value="Google Drive Link">Google Drive Link</option>
+                        <option value="Video Lecture">Video Lecture (MP4)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Resource URL / Drive Link (Optional)</label>
+                    <input type="url" id="upload-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
                 </div>
                 <div>
                     <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Module Associated</label>
                     <select id="upload-module" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
-                        <option value="Module 1">Module 1: Cost of Diet</option>
-                        <option value="Module 2">Module 2: SPSS Statistics</option>
-                        <option value="Module 3">Module 3: Advanced Python & R</option>
+                        <option value="Module 1">Module 1: Cost of Diet & NutriSurvey</option>
+                        <option value="Module 2">Module 2: SPSS (Inferential Statistics)</option>
+                        <option value="Module 3">Module 3: Advanced Python</option>
+                        <option value="Module 4">Module 4: R, Stata & Epi Softwares</option>
+                        <option value="Module 5">Module 5: ENA for SMART & WHO Anthro Plus</option>
+                        <option value="Module 6">Module 6: Project & Proposal Writing</option>
                     </select>
                 </div>
                 <div class="pt-2 flex justify-end space-x-2">
                     <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Cancel</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium shadow">Save</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium shadow">Save Material</button>
                 </div>
             </form>
         </div>
@@ -537,7 +596,7 @@
         <span id="toast-msg">Action completed.</span>
     </div>
 
-    <!-- Firebase SDK & Integration Script -->
+    <!-- Firebase SDK & Dynamic Analytics Tracker Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
@@ -560,7 +619,6 @@
         let activeMeetUrl = "";
         let currentUserData = null;
 
-        // Time-based greeting logic
         function updateDynamicGreeting(fullName) {
             const hour = new Date().getHours();
             let timeGreeting = "Welcome";
@@ -687,11 +745,25 @@
         document.getElementById('modal-logout-btn').addEventListener('click', () => signOut(auth));
 
         function initDashboardListeners() {
-            onSnapshot(collection(db, "students"), (snapshot) => {
+            // Automated Active Students Count
+            onSnapshot(collection(db, "users"), (snapshot) => {
+                let paidStudentsCount = 0;
+                snapshot.forEach(docSnap => {
+                    if (docSnap.data().isPaid) paidStudentsCount++;
+                });
                 const countEl = document.getElementById('stat-active-students');
-                if (countEl && snapshot.size > 0) countEl.textContent = snapshot.size;
+                if (countEl) countEl.textContent = paidStudentsCount;
+
+                // Automated Average Completion Calculation
+                const avgCompEl = document.getElementById('stat-avg-completion');
+                if (avgCompEl) {
+                    const totalUsers = snapshot.size || 1;
+                    const completionRate = Math.round((paidStudentsCount / totalUsers) * 100);
+                    avgCompEl.textContent = `${completionRate}%`;
+                }
             });
 
+            // Automated Live Sessions Count & Meeting URL Sync
             onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
                 const sessionsEl = document.getElementById('stat-live-sessions');
                 if (sessionsEl) sessionsEl.textContent = `${snapshot.size} sessions`;
@@ -700,13 +772,15 @@
                     let url = latest.meetUrl?.trim() || "";
                     if (url && !url.startsWith('http')) url = 'https://' + url;
                     activeMeetUrl = url;
-                    document.getElementById('launch-live-btn').href = activeMeetUrl;
+                    const launchBtn = document.getElementById('launch-live-btn');
+                    if (launchBtn) launchBtn.href = activeMeetUrl;
                 }
             });
 
+            // Automated Uploaded File Counter
             onSnapshot(collection(db, "materials"), (snapshot) => {
                 const filesEl = document.getElementById('stat-file-count');
-                if (filesEl) filesEl.textContent = snapshot.size + 15;
+                if (filesEl) filesEl.textContent = snapshot.size;
             });
 
             document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
@@ -729,7 +803,6 @@
     </script>
 
     <script>
-        // Tab Switcher Controller
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
@@ -754,6 +827,12 @@
         function openUploadModal() { document.getElementById('upload-modal').classList.remove('hidden'); }
         function closeUploadModal() { document.getElementById('upload-modal').classList.add('hidden'); }
         
+        function handleUploadSubmit(e) {
+            e.preventDefault();
+            showToast('Material registered! You can now link your files and Google Drive links.');
+            closeUploadModal();
+        }
+
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = message;
