@@ -607,7 +607,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // FIREBASE CONFIGURATION & INITIALIZATION (Verified Live Project Credentials)
+        // FIREBASE CONFIGURATION & INITIALIZATION
         const firebaseConfig = {
             apiKey: "AIzaSyCtpu4IVkF9yDOY9TbudXGMAwZVrZs2Xck",
             authDomain: "data-analytics-portal-cd545.firebaseapp.com",
@@ -683,13 +683,12 @@
             if (user) {
                 document.getElementById('user-display-name').textContent = user.displayName || user.email.split('@')[0];
                 
-                // Check verification status in Firestore
                 const userDocRef = db.collection('users').doc(user.uid);
                 const docSnap = await userDocRef.get();
 
                 let isVerified = false;
                 if (user.email === HOST_EMAIL) {
-                    isVerified = true; // Host is auto-verified
+                    isVerified = true;
                 } else if (docSnap.exists) {
                     isVerified = docSnap.data().verified || false;
                 }
