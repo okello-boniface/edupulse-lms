@@ -607,7 +607,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // FIREBASE CONFIGURATION & INITIALIZATION (Live Project Credentials)
+        // FIREBASE CONFIGURATION & INITIALIZATION (Verified Live Project Credentials)
         const firebaseConfig = {
             apiKey: "AIzaSyCtpu4IVkF9yDOY9TbudXGMAwZVrZs2Xck",
             authDomain: "data-analytics-portal-cd545.firebaseapp.com",
@@ -697,7 +697,6 @@
                 if (isVerified) {
                     modal.classList.add('hidden');
                 } else {
-                    // Show payment instructions / pending notice
                     signupCont.classList.add('hidden');
                     loginCont.classList.add('hidden');
                     payCont.classList.remove('hidden');
@@ -793,7 +792,6 @@
                 document.getElementById('proof-form').classList.add('hidden');
                 document.getElementById('pending-notice').classList.remove('hidden');
 
-                // Open WhatsApp link automatically to instructor
                 const waMessage = encodeURIComponent(`Hello Dativa Consultancy, I have submitted my payment proof. My details: ${user.email} | Transaction/Mobile: ${proofText}`);
                 window.open(`https://wa.me/256770840851?text=${waMessage}`, '_blank');
             } catch (err) {
