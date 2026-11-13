@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dativa Research Consultancy - Data Analytics & Learning Hub</title>
+    <!-- Google Search Console Ownership Verification -->
+    <meta name="google-site-verification" content="hsT2EhI6tvDiDb_vzFFH18tznXGP8NvEzDM2uE0tp54" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -205,11 +207,11 @@
                 <i class="fa-solid fa-sun hidden dark:block text-amber-400 text-lg"></i>
             </button>
 
-            <div class="flex items-center space-x-2 border-l border-slate-200 dark:border-slate-800 pl-3">
+            <div onclick="handleLogout()" class="cursor-pointer flex items-center space-x-2 border-l border-slate-200 dark:border-slate-800 pl-3 hover:opacity-80 transition" title="Click to Sign Out">
                 <div class="w-9 h-9 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-sm shadow-inner">👤</div>
-                <div class="hidden lg:block text-left">
+                <div class="text-left">
                     <p id="user-display-name" class="text-xs font-semibold leading-none text-slate-800 dark:text-slate-200">Student</p>
-                    <button id="logout-btn" class="text-[10px] text-red-500 hover:underline mt-0.5">Sign Out</button>
+                    <span id="logout-btn" class="text-[10px] text-red-500 hover:underline mt-0.5 block">Sign Out</span>
                 </div>
             </div>
         </div>
@@ -452,94 +454,111 @@
                     <button id="toggle-cam" onclick="toggleCam()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
                         <i class="fa-solid fa-video mr-1"></i> <span id="cam-text">Stop Cam</span>
                     </button>
-                    <a id="launch-live-btn" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow transition flex items-center space-x-1">
-                        <i class="fa-solid fa-external-link-alt mr-1"></i> Launch Meeting Link
-                    </a>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <div class="lg:col-span-2 space-y-4">
-                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden aspect-video shadow-lg border border-slate-800 flex items-center justify-center">
-                        <div id="video-stream-box" class="w-full h-full relative flex items-center justify-center bg-slate-900">
-                            <div class="text-center">
-                                <img src="dativa_logo.png" alt="Logo" class="h-16 mx-auto mb-3 opacity-80">
-                                <p class="text-slate-300 font-semibold text-sm">Dativa Research Consultancy</p>
-                                <p class="text-slate-500 text-xs mt-1">Live class scheduled URL automatically syncs here.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Whiteboard -->
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
-                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
-                            <div class="flex items-center space-x-2">
-                                <i class="fa-solid fa-pen-ruler text-brand-500"></i>
-                                <h3 class="font-bold text-sm text-slate-900 dark:text-white">Live Whiteboard Canvas</h3>
-                            </div>
-                            <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
-                                <button onclick="setWBColor('#6366f1')" class="w-5 h-5 rounded-full bg-indigo-500"></button>
-                                <button onclick="setWBColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500"></button>
-                                <button onclick="setWBColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500"></button>
-                                <button onclick="setWBColor('#000000')" class="w-5 h-5 rounded-full bg-black"></button>
-                                <button onclick="clearWhiteboard()" class="px-2 py-1 text-xs bg-white dark:bg-slate-800 rounded text-slate-600 dark:text-slate-300">Clear</button>
-                            </div>
-                        </div>
-                        <div class="w-full bg-slate-50 dark:bg-slate-950 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
-                            <canvas id="live-whiteboard" height="260" class="w-full cursor-crosshair touch-none"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col h-[640px]">
-                    <div class="flex border-b border-slate-200 dark:border-slate-700 p-3 font-bold text-xs">Live Classroom Info</div>
-                    <div class="flex-grow p-3 text-xs text-slate-500 space-y-2">
-                        <p>Join live Google Meet sessions using the button above.</p>
-                        <p>Whiteboard drawings and chat feed reset per session.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: NOTES & MATERIALS HUB -->
-        <section id="notes-hub" class="tab-content space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">Lecture Notes & Documents</h2>
-                    <p class="text-xs text-slate-500">Access reading lists, slide decks, and downloadable course guides.</p>
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <input type="text" id="notes-search-input" onkeyup="filterNotes()" placeholder="Filter materials..." class="text-xs px-3 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-slate-800 dark:text-slate-200 w-40 sm:w-56">
-                    <button onclick="openUploadModal()" class="text-xs bg-brand-600 hover:bg-brand-700 text-white px-3 py-2 rounded-lg font-medium transition">
-                        <i class="fa-solid fa-upload mr-1"></i> Add Document or Drive Link
+                    <button onclick="shareScreen()" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">
+                        <i class="fa-solid fa-desktop mr-1"></i> Share Screen
                     </button>
                 </div>
             </div>
-            <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="col-span-full p-8 text-center text-xs text-slate-400 bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
-                    No documents uploaded yet. Click <strong>"Add Document or Drive Link"</strong> to publish notes!
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <div class="lg:col-span-3 bg-slate-900 rounded-2xl overflow-hidden shadow-2xl relative aspect-video flex items-center justify-center border border-slate-800">
+                    <video id="live-video-preview" autoplay muted playsinline class="w-full h-full object-cover"></video>
+                    <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 text-slate-400 p-6 text-center">
+                        <i class="fa-solid fa-video-slash text-4xl mb-2 text-slate-600"></i>
+                        <p class="text-sm font-medium">Camera preview is off or connecting...</p>
+                        <button onclick="startCamera()" class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-500 transition">Start Camera & Mic</button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 bg-slate-950/70 backdrop-blur px-3 py-1.5 rounded-lg text-white text-xs font-medium flex items-center space-x-2 border border-white/10">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                        <span>Instructor Live Stream</span>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex flex-col h-[400px] lg:h-auto shadow-sm">
+                    <div class="pb-2 border-b border-slate-100 dark:border-slate-700 font-bold text-xs flex justify-between items-center text-slate-700 dark:text-slate-300">
+                        <span>Live Class Chat</span>
+                        <span class="text-[10px] text-emerald-500"><i class="fa-solid fa-circle text-[8px]"></i> Connected</span>
+                    </div>
+                    <div id="live-chat-messages" class="flex-grow overflow-y-auto my-2 space-y-2 pr-1 text-xs">
+                        <div class="p-2 bg-slate-50 dark:bg-slate-900 rounded-lg text-slate-500 italic">Welcome to the live session! Ask questions here.</div>
+                    </div>
+                    <form id="live-chat-form" class="pt-2 border-t border-slate-100 dark:border-slate-700 flex gap-2">
+                        <input type="text" id="live-chat-input" placeholder="Type message..." required class="flex-grow text-xs bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 text-slate-800 dark:text-slate-200 focus:outline-none">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg text-xs font-semibold">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 4: VIDEO LECTURE LIBRARY -->
-        <section id="video-hub" class="tab-content space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 space-y-4">
-                    <div class="bg-black rounded-2xl overflow-hidden aspect-video shadow-xl relative flex items-center justify-center">
-                        <div id="no-video-placeholder" class="text-center p-6 text-slate-400 text-xs">
-                            <i class="fa-solid fa-circle-play text-4xl mb-2 text-slate-600"></i>
-                            <p>No video selected. Upload or add a video/Google Drive link to play.</p>
-                        </div>
-                        <video id="main-video-player" controls class="w-full h-full object-cover hidden">
-                            <source id="video-source" src="" type="video/mp4">
-                        </video>
+        <!-- SECTION 3: NOTES & DOCS HUB -->
+        <section id="notes-hub" class="tab-content space-y-4">
+            <div class="flex flex-wrap justify-between items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                <div>
+                    <h2 class="font-bold text-slate-900 dark:text-white text-lg">Notes & Documents Hub</h2>
+                    <p class="text-xs text-slate-500">Access and download uploaded study materials, codebooks, and Google Drive links.</p>
+                </div>
+                <button onclick="openUploadModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Upload Material</span>
+                </button>
+            </div>
+
+            <div id="materials-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-300 uppercase">Module 1</span>
+                        <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">Cost of Diet Manual & Guidelines</h4>
+                        <p class="text-xs text-slate-500 mt-1">Linear programming tool documentation and household survey instructions.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
+                        <span class="text-slate-400">PDF • 2.4 MB</span>
+                        <a href="https://drive.google.com" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
+                            <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <h3 class="font-bold text-sm text-slate-900 dark:text-white pb-2 border-b border-slate-100 dark:border-slate-700">Course Playlist</h3>
-                    <div id="video-playlist" class="space-y-2 mt-3">
-                        <div class="p-4 text-center text-xs text-slate-400 italic">No video lessons uploaded yet.</div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 uppercase">Module 2</span>
+                        <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">SPSS Multivariable Regression Datasets</h4>
+                        <p class="text-xs text-slate-500 mt-1">Sample datasets (.sav) and syntax guides for binary logistic modeling.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
+                        <span class="text-slate-400">Dataset • 5.1 MB</span>
+                        <a href="https://drive.google.com" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
+                            <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: VIDEO LIBRARY -->
+        <section id="video-hub" class="tab-content space-y-4">
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex justify-between items-center">
+                <div>
+                    <h2 class="font-bold text-slate-900 dark:text-white text-lg">Recorded Video Sessions</h2>
+                    <p class="text-xs text-slate-500">Replay previous live classes, tutorials, and practical software walkthroughs.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+                    <div class="bg-slate-900 aspect-video relative flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-circle-play text-4xl text-indigo-500"></i>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded">45:20</span>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow justify-between space-y-2">
+                        <div>
+                            <span class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Module 2 • SPSS</span>
+                            <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100 mt-1">Interpreting Odds Ratios in Binary Logistic Regression</h4>
+                        </div>
+                        <button onclick="switchTab('live-class')" class="w-full mt-2 bg-indigo-50 dark:bg-slate-700 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-200 text-xs font-semibold py-2 rounded-lg transition">
+                            Watch Recording
+                        </button>
                     </div>
                 </div>
             </div>
@@ -547,63 +566,50 @@
     </main>
 
     <!-- Upload Modal -->
-    <div id="upload-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
-                <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center">
-                    <i class="fa-solid fa-cloud-arrow-up text-brand-500 mr-2"></i> Add Material / Drive Link
-                </h3>
-                <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600">✕</button>
+    <div id="upload-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-700">
+                <h3 class="font-bold text-base text-slate-900 dark:text-white">Upload Study Material / Drive Link</h3>
+                <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <form onsubmit="handleUploadSubmit(event)" class="space-y-3 text-xs">
+            <form id="upload-form" class="space-y-3">
                 <div>
-                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Title</label>
-                    <input type="text" id="upload-title" required placeholder="e.g. SPSS Regression Notes" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Material Title</label>
+                    <input type="text" id="upload-title" placeholder="e.g. SPSS Week 2 Slides" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div>
-                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Material Type</label>
-                    <select id="upload-type" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
-                        <option value="PDF Document">PDF / Lecture Note</option>
-                        <option value="Google Drive Link">Google Drive Link</option>
-                        <option value="Video Lecture">Video Lecture (MP4)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Resource URL / Drive Link (Optional)</label>
-                    <input type="url" id="upload-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
-                </div>
-                <div>
-                    <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Module Associated</label>
-                    <select id="upload-module" class="w-full px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Module</label>
+                    <select id="upload-module" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="Module 1">Module 1: Cost of Diet & NutriSurvey</option>
                         <option value="Module 2">Module 2: SPSS (Inferential Statistics)</option>
                         <option value="Module 3">Module 3: Advanced Python</option>
                         <option value="Module 4">Module 4: R, Stata & Epi Softwares</option>
-                        <option value="Module 5">Module 5: ENA for SMART & WHO Anthro Plus</option>
+                        <option value="Module 5">Module 5: ENA for SMART & Anthro Plus</option>
                         <option value="Module 6">Module 6: Project & Proposal Writing</option>
                     </select>
                 </div>
-                <div class="pt-2 flex justify-end space-x-2">
-                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Cancel</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium shadow">Save Material</button>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Google Drive Link / Resource URL</label>
+                    <input type="url" id="upload-url" placeholder="https://drive.google.com/..." required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl shadow transition">
+                        Publish Material to Hub
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-        <span id="toast-msg">Action completed.</span>
-    </div>
+    <!-- Firebase SDK Compatibility Imports -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-    <!-- Firebase SDK & Dynamic Analytics Tracker Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
-        import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
-
+    <script>
+        // FIREBASE CONFIGURATION & INITIALIZATION (Live Project Credentials)
         const firebaseConfig = {
-            apiKey: "AIzaSyCtpu4IvkF9yDOY9TbudXGMAwZVrZs2Xck",
+            apiKey: "AIzaSyCtpu4IVkF9yDOY9TbudXGMAwZVrZs2Xck",
             authDomain: "data-analytics-portal-cd545.firebaseapp.com",
             projectId: "data-analytics-portal-cd545",
             storageBucket: "data-analytics-portal-cd545.firebasestorage.app",
@@ -612,233 +618,338 @@
             measurementId: "G-QB84Y1GCEB"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let activeMeetUrl = "";
-        let currentUserData = null;
-
-        function updateDynamicGreeting(fullName) {
-            const hour = new Date().getHours();
-            let timeGreeting = "Welcome";
-
-            if (hour >= 5 && hour < 12) {
-                timeGreeting = "Good morning";
-            } else if (hour >= 12 && hour < 17) {
-                timeGreeting = "Good afternoon";
-            } else {
-                timeGreeting = "Good evening";
-            }
-
-            const nameParts = fullName ? fullName.trim().split(" ") : ["Student"];
-            const displayName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
-
-            const welcomeTitleEl = document.getElementById('welcome-title');
-            if (welcomeTitleEl) {
-                welcomeTitleEl.textContent = `${timeGreeting}, ${displayName}!`;
-            }
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
         }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-        window.toggleAuthMode = function(isLogin) {
-            if (isLogin) {
-                document.getElementById('signup-container').classList.add('hidden');
-                document.getElementById('login-container').classList.remove('hidden');
-            } else {
-                document.getElementById('signup-container').classList.remove('hidden');
-                document.getElementById('login-container').classList.add('hidden');
-            }
-        };
+        const HOST_EMAIL = "okellobonifacer@gmail.com";
 
-        document.getElementById('signup-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('auth-name').value.trim();
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
-
-            try {
-                const userCred = await createUserWithEmailAndPassword(auth, email, password);
-                const uid = userCred.user.uid;
-
-                await setDoc(doc(db, "users", uid), {
-                    name: name,
-                    email: email,
-                    isPaid: false,
-                    proofSubmitted: false,
-                    createdAt: serverTimestamp()
-                });
-
-                showPaymentInstructions();
-            } catch (err) {
-                alert("Error: " + err.message);
-            }
-        });
-
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value.trim();
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-            } catch (err) {
-                alert("Login failed: " + err.message);
-            }
-        });
-
-        document.getElementById('proof-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const proof = document.getElementById('proof-text').value.trim();
-            const user = auth.currentUser;
-
-            if (user) {
-                try {
-                    await updateDoc(doc(db, "users", user.uid), {
-                        paymentProof: proof,
-                        proofSubmitted: true
-                    });
-                    document.getElementById('proof-form').classList.add('hidden');
-                    document.getElementById('pending-notice').classList.remove('hidden');
-                } catch (err) {
-                    alert("Failed to submit proof. Try again.");
-                }
-            }
-        });
-
-        function showPaymentInstructions() {
-            document.getElementById('signup-container').classList.add('hidden');
-            document.getElementById('login-container').classList.add('hidden');
-            document.getElementById('payment-instructions-container').classList.remove('hidden');
-        }
-
-        onAuthStateChanged(auth, async (user) => {
-            const paywallModal = document.getElementById('auth-paywall-modal');
-            if (user) {
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.exists()) {
-                    currentUserData = userDoc.data();
-                    updateDynamicGreeting(currentUserData.name);
-
-                    if (currentUserData.isPaid) {
-                        document.getElementById('user-display-name').textContent = currentUserData.name;
-                        paywallModal.classList.add('hidden');
-                        initDashboardListeners();
-                    } else {
-                        showPaymentInstructions();
-                        paywallModal.classList.remove('hidden');
-                        if (currentUserData.proofSubmitted) {
-                            document.getElementById('proof-form').classList.add('hidden');
-                            document.getElementById('pending-notice').classList.remove('hidden');
-                        }
-                    }
-                } else {
-                    paywallModal.classList.remove('hidden');
-                }
-            } else {
-                paywallModal.classList.remove('hidden');
-                document.getElementById('signup-container').classList.remove('hidden');
-                document.getElementById('payment-instructions-container').classList.add('hidden');
-            }
-        });
-
-        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth).then(() => location.reload()));
-        document.getElementById('modal-logout-btn').addEventListener('click', () => signOut(auth));
-
-        function initDashboardListeners() {
-            // Automated Active Students Count
-            onSnapshot(collection(db, "users"), (snapshot) => {
-                let paidStudentsCount = 0;
-                snapshot.forEach(docSnap => {
-                    if (docSnap.data().isPaid) paidStudentsCount++;
-                });
-                const countEl = document.getElementById('stat-active-students');
-                if (countEl) countEl.textContent = paidStudentsCount;
-
-                // Automated Average Completion Calculation
-                const avgCompEl = document.getElementById('stat-avg-completion');
-                if (avgCompEl) {
-                    const totalUsers = snapshot.size || 1;
-                    const completionRate = Math.round((paidStudentsCount / totalUsers) * 100);
-                    avgCompEl.textContent = `${completionRate}%`;
-                }
-            });
-
-            // Automated Live Sessions Count & Meeting URL Sync
-            onSnapshot(query(collection(db, "live_classes"), orderBy("createdAt", "desc")), (snapshot) => {
-                const sessionsEl = document.getElementById('stat-live-sessions');
-                if (sessionsEl) sessionsEl.textContent = `${snapshot.size} sessions`;
-                if (!snapshot.empty) {
-                    const latest = snapshot.docs[0].data();
-                    let url = latest.meetUrl?.trim() || "";
-                    if (url && !url.startsWith('http')) url = 'https://' + url;
-                    activeMeetUrl = url;
-                    const launchBtn = document.getElementById('launch-live-btn');
-                    if (launchBtn) launchBtn.href = activeMeetUrl;
-                }
-            });
-
-            // Automated Uploaded File Counter
-            onSnapshot(collection(db, "materials"), (snapshot) => {
-                const filesEl = document.getElementById('stat-file-count');
-                if (filesEl) filesEl.textContent = snapshot.size;
-            });
-
-            document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const text = document.getElementById('post-text').value.trim();
-                const author = document.getElementById('post-author').value.trim() || currentUserData.name;
-                await addDoc(collection(db, "discussions"), { author, text, createdAt: serverTimestamp() });
-                document.getElementById('post-text').value = '';
-            });
-
-            onSnapshot(query(collection(db, "discussions"), orderBy("createdAt", "desc")), (snapshot) => {
-                const feed = document.getElementById('discussions-feed');
-                feed.innerHTML = snapshot.empty ? `<div class="p-3 text-xs text-slate-400 text-center">No posts yet.</div>` : "";
-                snapshot.forEach(d => {
-                    const p = d.data();
-                    feed.innerHTML += `<div class="p-2.5 bg-slate-50 dark:bg-slate-900 rounded-lg text-xs"><span class="font-semibold text-brand-600">${p.author}:</span> ${p.text}</div>`;
-                });
-            });
-        }
-    </script>
-
-    <script>
+        // APP STATE & UI NAVIGATION
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-brand-600', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
+                btn.classList.add('text-slate-600', 'dark:text-slate-300');
             });
-            const activeNavBtn = document.getElementById(`nav-${tabId}`);
-            if (activeNavBtn) activeNavBtn.classList.add('text-brand-600', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
-
-            document.querySelectorAll('.mob-nav-btn').forEach(btn => btn.classList.remove('text-brand-600'));
-            const activeMobBtn = document.getElementById(`mob-nav-${tabId}`);
-            if (activeMobBtn) activeMobBtn.classList.add('text-brand-600');
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'dark:text-slate-300');
+                activeBtn.classList.add('text-brand-600', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleDarkMode() {
             const html = document.documentElement;
-            html.classList.toggle('dark');
-            html.classList.toggle('light');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.remove('dark', 'light');
+                html.classList.add('dark');
+            }
         }
 
-        function openUploadModal() { document.getElementById('upload-modal').classList.remove('hidden'); }
-        function closeUploadModal() { document.getElementById('upload-modal').classList.add('hidden'); }
-        
-        function handleUploadSubmit(e) {
+        // AUTH & PAYWALL LOGIC
+        function toggleAuthMode(isLogin) {
+            if (isLogin) {
+                document.getElementById('signup-container').classList.add('hidden');
+                document.getElementById('login-container').classList.remove('hidden');
+            } else {
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('signup-container').classList.remove('hidden');
+            }
+        }
+
+        function openUploadModal() {
+            document.getElementById('upload-modal').classList.remove('hidden');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('upload-modal').classList.add('hidden');
+        }
+
+        // FIREBASE AUTH STATE LISTENER
+        auth.onAuthStateChanged(async (user) => {
+            const modal = document.getElementById('auth-paywall-modal');
+            const signupCont = document.getElementById('signup-container');
+            const loginCont = document.getElementById('login-container');
+            const payCont = document.getElementById('payment-instructions-container');
+
+            if (user) {
+                document.getElementById('user-display-name').textContent = user.displayName || user.email.split('@')[0];
+                
+                // Check verification status in Firestore
+                const userDocRef = db.collection('users').doc(user.uid);
+                const docSnap = await userDocRef.get();
+
+                let isVerified = false;
+                if (user.email === HOST_EMAIL) {
+                    isVerified = true; // Host is auto-verified
+                } else if (docSnap.exists) {
+                    isVerified = docSnap.data().verified || false;
+                }
+
+                if (isVerified) {
+                    modal.classList.add('hidden');
+                } else {
+                    // Show payment instructions / pending notice
+                    signupCont.classList.add('hidden');
+                    loginCont.classList.add('hidden');
+                    payCont.classList.remove('hidden');
+                    modal.classList.remove('hidden');
+                }
+            } else {
+                document.getElementById('user-display-name').textContent = 'Guest';
+                payCont.classList.add('hidden');
+                signupCont.classList.remove('hidden');
+                modal.classList.remove('hidden');
+            }
+        });
+
+        // Sign Up Handler
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            showToast('Material registered! You can now link your files and Google Drive links.');
-            closeUploadModal();
+            const name = document.getElementById('auth-name').value;
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+
+            try {
+                const cred = await auth.createUserWithEmailAndPassword(email, password);
+                await cred.user.updateProfile({ displayName: name });
+                
+                const isHost = (email === HOST_EMAIL);
+                await db.collection('users').doc(cred.user.uid).set({
+                    name: name,
+                    email: email,
+                    verified: isHost,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                if (isHost) {
+                    document.getElementById('auth-paywall-modal').classList.add('hidden');
+                } else {
+                    document.getElementById('signup-container').classList.add('hidden');
+                    document.getElementById('payment-instructions-container').classList.remove('hidden');
+                }
+            } catch (err) {
+                alert('Sign up error: ' + err.message);
+            }
+        });
+
+        // Login Handler
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+            } catch (err) {
+                alert('Login error: ' + err.message);
+            }
+        });
+
+        // Logout Handler
+        async function handleLogout() {
+            try {
+                await auth.signOut();
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('payment-instructions-container').classList.add('hidden');
+                document.getElementById('signup-container').classList.remove('hidden');
+                document.getElementById('auth-paywall-modal').classList.remove('hidden');
+            } catch (err) {
+                alert('Logout error: ' + err.message);
+            }
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleLogout();
+        });
+        document.getElementById('modal-logout-btn').addEventListener('click', handleLogout);
+
+        // Proof Submission Handler
+        document.getElementById('proof-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const proofText = document.getElementById('proof-text').value;
+            const user = auth.currentUser;
+            if (!user) return;
+
+            try {
+                await db.collection('proofs').add({
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || 'Student',
+                    proof: proofText,
+                    status: 'pending',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                document.getElementById('proof-form').classList.add('hidden');
+                document.getElementById('pending-notice').classList.remove('hidden');
+
+                // Open WhatsApp link automatically to instructor
+                const waMessage = encodeURIComponent(`Hello Dativa Consultancy, I have submitted my payment proof. My details: ${user.email} | Transaction/Mobile: ${proofText}`);
+                window.open(`https://wa.me/256770840851?text=${waMessage}`, '_blank');
+            } catch (err) {
+                alert('Error submitting proof: ' + err.message);
+            }
+        });
+
+        // UPLOAD MATERIAL FORM
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('upload-title').value;
+            const module = document.getElementById('upload-module').value;
+            const url = document.getElementById('upload-url').value;
+
+            try {
+                await db.collection('materials').add({
+                    title: title,
+                    module: module,
+                    url: url,
+                    uploadedBy: auth.currentUser ? auth.currentUser.email : 'Guest',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                alert('Material published successfully!');
+                closeUploadModal();
+                document.getElementById('upload-form').reset();
+                loadMaterials();
+            } catch (err) {
+                alert('Error uploading material: ' + err.message);
+            }
+        });
+
+        // LOAD MATERIALS DYNAMICALLY
+        function loadMaterials() {
+            db.collection('materials').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+                const grid = document.getElementById('materials-grid');
+                let html = '';
+                let count = 0;
+
+                snapshot.forEach((doc) => {
+                    count++;
+                    const data = doc.data();
+                    html += `
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 uppercase">${data.module}</span>
+                                <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">${data.title}</h4>
+                                <p class="text-xs text-slate-500 mt-1">Uploaded by ${data.uploadedBy}</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
+                                <span class="text-slate-400">Google Drive Resource</span>
+                                <a href="${data.url}" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
+                                    <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (count > 0) {
+                    grid.innerHTML = html;
+                    document.getElementById('stat-file-count').textContent = count;
+                }
+            });
         }
+
+        // LOAD STATS & DISCUSSIONS
+        db.collection('users').onSnapshot((snap) => {
+            document.getElementById('stat-active-students').textContent = snap.size;
+        });
+
+        // LIVE DISCUSSION FORUM
+        document.getElementById('discussion-post-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const author = document.getElementById('post-author').value;
+            const text = document.getElementById('post-text').value;
+
+            try {
+                await db.collection('discussions').add({
+                    author: author,
+                    text: text,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                document.getElementById('post-text').value = '';
+                loadDiscussions();
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        function loadDiscussions() {
+            db.collection('discussions').orderBy('createdAt', 'asc').onSnapshot((snap) => {
+                const feed = document.getElementById('discussions-feed');
+                if (snap.empty) {
+                    feed.innerHTML = '<div class="p-3 bg-slate-50 dark:bg-slate-900 text-center text-slate-400 italic">No posts yet. Start a discussion below!</div>';
+                    return;
+                }
+                let html = '';
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    html += `
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800 space-y-1">
+                            <div class="flex justify-between font-semibold text-[11px] text-indigo-600 dark:text-indigo-400">
+                                <span>${d.author}</span>
+                                <span class="text-[10px] text-slate-400">Just now</span>
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300">${d.text}</p>
+                        </div>
+                    `;
+                });
+                feed.innerHTML = html;
+                feed.scrollTop = feed.scrollHeight;
+            });
+        }
+
+        // CAMERA & MIC MOCK CONTROLS
+        let localStream = null;
+        async function startCamera() {
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                const videoEl = document.getElementById('live-video-preview');
+                videoEl.srcObject = localStream;
+                document.getElementById('video-placeholder').classList.add('hidden');
+            } catch (err) {
+                alert('Camera permission denied or not available.');
+            }
+        }
+
+        function toggleMic() {
+            if (!localStream) return;
+            const audioTrack = localStream.getAudioTracks()[0];
+            audioTrack.enabled = !audioTrack.enabled;
+            document.getElementById('mic-text').textContent = audioTrack.enabled ? 'Mute Mic' : 'Unmute Mic';
+        }
+
+        function toggleCam() {
+            if (!localStream) return;
+            const videoTrack = localStream.getVideoTracks()[0];
+            videoTrack.enabled = !videoTrack.enabled;
+            document.getElementById('cam-text').textContent = videoTrack.enabled ? 'Stop Cam' : 'Start Cam';
+        }
+
+        async function shareScreen() {
+            try {
+                const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                document.getElementById('live-video-preview').srcObject = screenStream;
+                document.getElementById('video-placeholder').classList.add('hidden');
+            } catch (err) {
+                console.log('Screen share cancelled');
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMaterials();
+            loadDiscussions();
+        });
     </script>
 </body>
 </html>
