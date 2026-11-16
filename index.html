@@ -197,7 +197,8 @@
         </nav>
 
         <div class="flex items-center space-x-3">
-            <button onclick="openUploadModal()" class="px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center space-x-2">
+            <!-- Admin-Only Upload Button (Hidden by default until HOST_EMAIL logs in) -->
+            <button onclick="openUploadModal()" class="admin-only hidden px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center space-x-2">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
                 <span class="hidden sm:inline">Upload</span>
             </button>
@@ -255,8 +256,8 @@
                         <button onclick="switchTab('live-class')" class="bg-white text-brand-700 hover:bg-brand-50 px-4 py-2 rounded-xl text-sm font-semibold shadow transition">
                             <i class="fa-solid fa-headset mr-1.5"></i> Launch Live Classroom
                         </button>
-                        <button onclick="openUploadModal()" class="bg-brand-800/60 hover:bg-brand-800 text-white px-4 py-2 rounded-xl text-sm font-semibold backdrop-blur transition border border-white/20">
-                            <i class="fa-solid fa-plus mr-1.5"></i> Add Materials & Drive Links
+                        <button onclick="openUploadModal()" class="admin-only hidden bg-brand-800/60 hover:bg-brand-800 text-white px-4 py-2 rounded-xl text-sm font-semibold backdrop-blur transition border border-white/20">
+                            <i class="fa-solid fa-plus mr-1.5"></i> Add Lectures & Drive Links
                         </button>
                     </div>
                 </div>
@@ -278,18 +279,18 @@
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Live Sessions</p>
-                            <h3 id="stat-live-sessions" class="text-2xl font-bold mt-1">0 sessions</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Video Lectures</p>
+                            <h3 id="stat-video-count" class="text-2xl font-bold mt-1">0</h3>
                         </div>
                         <span class="p-2 bg-purple-100 dark:bg-purple-900/40 text-purple-600 rounded-lg"><i class="fa-solid fa-video"></i></span>
                     </div>
-                    <p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-arrows-rotate"></i> Automated tracker</p>
+                    <p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-arrows-rotate"></i> Recorded modules</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Uploaded Files</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Uploaded Materials</p>
                             <h3 id="stat-file-count" class="text-2xl font-bold mt-1">0</h3>
                         </div>
                         <span class="p-2 bg-amber-100 dark:bg-amber-900/40 text-amber-600 rounded-lg"><i class="fa-solid fa-file-pdf"></i></span>
@@ -300,12 +301,12 @@
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Avg Completion</p>
-                            <h3 id="stat-avg-completion" class="text-2xl font-bold mt-1">0%</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Course Modules</p>
+                            <h3 id="stat-avg-completion" class="text-2xl font-bold mt-1">6</h3>
                         </div>
-                        <span class="p-2 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line"></i></span>
+                        <span class="p-2 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 rounded-lg"><i class="fa-solid fa-book-open"></i></span>
                     </div>
-                    <p class="text-xs text-emerald-500 mt-2 font-medium"><i class="fa-solid fa-calculator"></i> Automated calculation</p>
+                    <p class="text-xs text-emerald-500 mt-2 font-medium"><i class="fa-solid fa-check-circle"></i> Active curriculum</p>
                 </div>
             </div>
 
@@ -327,7 +328,7 @@
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-300">Module 1</span>
                                     <h4 class="font-semibold text-sm mt-1">Cost of Diet Software & NutriSurvey</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
                                 <span>Linear programming & nutrient requirements modeling</span>
@@ -342,7 +343,7 @@
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300">Module 2</span>
                                     <h4 class="font-semibold text-sm mt-1">SPSS (Inferential Statistics)</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
                                 <span>Multivariable binary logistic regression, Chi-square & ANOVA</span>
@@ -357,7 +358,7 @@
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300">Module 3</span>
                                     <h4 class="font-semibold text-sm mt-1">Advanced Python</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
                                 <span>Data wrangling with Pandas & SciPy</span>
@@ -372,7 +373,7 @@
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300">Module 4</span>
                                     <h4 class="font-semibold text-sm mt-1">R, Stata & Epi Softwares</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
                                 <span>Epi Info, Stata do-files, and R tidyverse workflow</span>
@@ -387,7 +388,7 @@
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300">Module 5</span>
                                     <h4 class="font-semibold text-sm mt-1">ENA for SMART & WHO Anthro Plus</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
                                 <span>Anthropometric Z-score calculation & SMART plausibility checks</span>
@@ -402,7 +403,7 @@
                                     <span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-300">Module 6</span>
                                     <h4 class="font-semibold text-sm mt-1">Project & Proposal Writing</h4>
                                 </div>
-                                <span class="text-xs text-emerald-500 font-semibold">Ready for upload</span>
+                                <span class="text-xs text-emerald-500 font-semibold">Active</span>
                             </div>
                             <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
                                 <span>Research methodology design, logframes & IRB ethics</span>
@@ -493,89 +494,121 @@
         </section>
 
         <!-- SECTION 3: NOTES & DOCS HUB -->
-        <section id="notes-hub" class="tab-content space-y-4">
+        <section id="notes-hub" class="tab-content space-y-6">
             <div class="flex flex-wrap justify-between items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                 <div>
-                    <h2 class="font-bold text-slate-900 dark:text-white text-lg">Notes & Documents Hub</h2>
-                    <p class="text-xs text-slate-500">Access and download uploaded study materials, codebooks, and Google Drive links.</p>
+                    <h2 class="font-bold text-slate-900 dark:text-white text-lg">Notes & Shared Resource Library</h2>
+                    <p class="text-xs text-slate-500">Browse all course notes directly in our live Google Drive folder or download individual module links below.</p>
                 </div>
-                <button onclick="openUploadModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <span>Upload Material</span>
-                </button>
+                <div class="flex items-center gap-2">
+                    <a href="https://drive.google.com/drive/folders/1PqBgBh5XDprlcz0HjwYlW9ixSwKlhZUi?usp=drive_link" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-white rounded-xl text-xs font-semibold transition flex items-center space-x-2">
+                        <span>Open Drive Folder</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button onclick="openUploadModal()" class="admin-only hidden px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Add Link</span>
+                    </button>
+                </div>
             </div>
 
-            <div id="materials-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-300 uppercase">Module 1</span>
-                        <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">Cost of Diet Manual & Guidelines</h4>
-                        <p class="text-xs text-slate-500 mt-1">Linear programming tool documentation and household survey instructions.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
-                        <span class="text-slate-400">PDF • 2.4 MB</span>
-                        <a href="https://drive.google.com" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
-                            <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                        </a>
-                    </div>
+            <!-- Live Embedded Google Drive Folder -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                <div class="px-4 py-3 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                        <i class="fa-brands fa-google-drive text-indigo-600"></i> Shared Course Notes Repository (Live Sync)
+                    </span>
+                    <span class="text-[11px] text-slate-400">Auto-updates as new notes are added</span>
                 </div>
+                <div class="bg-white">
+                    <iframe 
+                        src="https://drive.google.com/embeddedfolderview?id=1PqBgBh5XDprlcz0HjwYlW9ixSwKlhZUi#list" 
+                        class="w-full h-[450px] border-0"
+                        title="Dativa Course Notes Shared Library">
+                    </iframe>
+                </div>
+            </div>
 
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 uppercase">Module 2</span>
-                        <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">SPSS Multivariable Regression Datasets</h4>
-                        <p class="text-xs text-slate-500 mt-1">Sample datasets (.sav) and syntax guides for binary logistic modeling.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
-                        <span class="text-slate-400">Dataset • 5.1 MB</span>
-                        <a href="https://drive.google.com" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
-                            <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                        </a>
+            <!-- Additional Module-Specific Links -->
+            <div>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3">Pinned Module Links</h3>
+                <div id="materials-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-300 uppercase">Module 1</span>
+                            <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">Cost of Diet Manual & Guidelines</h4>
+                            <p class="text-xs text-slate-500 mt-1">Linear programming tool documentation and household survey instructions.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
+                            <span class="text-slate-400">Google Drive Resource</span>
+                            <a href="https://drive.google.com/drive/folders/1PqBgBh5XDprlcz0HjwYlW9ixSwKlhZUi?usp=drive_link" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
+                                <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 4: VIDEO LIBRARY -->
-        <section id="video-hub" class="tab-content space-y-4">
-            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex justify-between items-center">
+        <section id="video-hub" class="tab-content space-y-6">
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap justify-between items-center gap-3">
                 <div>
-                    <h2 class="font-bold text-slate-900 dark:text-white text-lg">Recorded Video Sessions</h2>
-                    <p class="text-xs text-slate-500">Replay previous live classes, tutorials, and practical software walkthroughs.</p>
+                    <h2 class="font-bold text-slate-900 dark:text-white text-lg">Video Lectures & Tutorials</h2>
+                    <p class="text-xs text-slate-500">Watch recorded lectures, software walkthroughs, and practical analytics sessions.</p>
+                </div>
+                <button onclick="openUploadModal('video')" class="admin-only hidden px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
+                    <i class="fa-solid fa-video"></i>
+                    <span>Publish Video Lecture</span>
+                </button>
+            </div>
+
+            <!-- Active Video Player Stage -->
+            <div id="video-player-stage" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                <div class="bg-slate-950 aspect-video w-full relative">
+                    <iframe 
+                        id="active-video-iframe"
+                        src="" 
+                        class="w-full h-full border-0 hidden"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div id="video-empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-6 text-center">
+                        <i class="fa-solid fa-circle-play text-5xl text-indigo-500 mb-3"></i>
+                        <p class="text-sm font-semibold text-white">Select a video lecture below to start watching</p>
+                        <p class="text-xs text-slate-400 mt-1">Published lectures from Firestore appear automatically in the playlist below.</p>
+                    </div>
+                </div>
+                <div class="p-4 flex flex-wrap justify-between items-center gap-2">
+                    <div>
+                        <span id="active-video-module" class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 uppercase">Ready</span>
+                        <h3 id="active-video-title" class="font-bold text-base text-slate-900 dark:text-white mt-1">No lecture selected</h3>
+                        <p id="active-video-desc" class="text-xs text-slate-500 mt-0.5"></p>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
-                    <div class="bg-slate-900 aspect-video relative flex items-center justify-center text-slate-400">
-                        <i class="fa-solid fa-circle-play text-4xl text-indigo-500"></i>
-                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded">45:20</span>
-                    </div>
-                    <div class="p-4 flex flex-col flex-grow justify-between space-y-2">
-                        <div>
-                            <span class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Module 2 • SPSS</span>
-                            <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100 mt-1">Interpreting Odds Ratios in Binary Logistic Regression</h4>
-                        </div>
-                        <button onclick="switchTab('live-class')" class="w-full mt-2 bg-indigo-50 dark:bg-slate-700 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-200 text-xs font-semibold py-2 rounded-lg transition">
-                            Watch Recording
-                        </button>
-                    </div>
-                </div>
+            <!-- Video Playlist Grid -->
+            <div id="videos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="col-span-full text-center py-8 text-xs text-slate-400 italic">Loading video lectures...</div>
             </div>
         </section>
     </main>
 
-    <!-- Upload Modal -->
+    <!-- Admin Upload Modal (Supports both Notes Links and Video Lectures) -->
     <div id="upload-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-700">
-                <h3 class="font-bold text-base text-slate-900 dark:text-white">Upload Study Material / Drive Link</h3>
+                <h3 class="font-bold text-base text-slate-900 dark:text-white">Publish Course Content</h3>
                 <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="upload-form" class="space-y-3">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Material Title</label>
-                    <input type="text" id="upload-title" placeholder="e.g. SPSS Week 2 Slides" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Content Type</label>
+                    <select id="upload-type" onchange="toggleUploadFields()" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="video">Video Lecture (YouTube or Google Drive Video)</option>
+                        <option value="note">Course Note / Document Link (Google Drive)</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Module</label>
@@ -589,12 +622,20 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Google Drive Link / Resource URL</label>
-                    <input type="url" id="upload-url" placeholder="https://drive.google.com/..." required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Lecture / Material Title</label>
+                    <input type="text" id="upload-title" placeholder="e.g. Interpreting Odds Ratios in SPSS" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div id="upload-desc-group">
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Short Description</label>
+                    <input type="text" id="upload-desc" placeholder="e.g. Step-by-step multivariable logistic regression walkthrough" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label id="upload-url-label" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Video Link (YouTube or Google Drive)</label>
+                    <input type="url" id="upload-url" placeholder="https://www.youtube.com/watch?v=... or https://drive.google.com/..." required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div class="pt-2">
                     <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl shadow transition">
-                        Publish Material to Hub
+                        Publish to Portal
                     </button>
                 </div>
             </form>
@@ -625,6 +666,24 @@
         const db = firebase.firestore();
 
         const HOST_EMAIL = "okellobonifacer@gmail.com";
+
+        // HELPER: Convert YouTube & Google Drive links into clean embed URLs
+        function formatEmbedUrl(url) {
+            if (!url) return "";
+            const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?]+)/);
+            if (ytMatch && ytMatch[1]) {
+                return `https://www.youtube.com/embed/${ytMatch[1]}`;
+            }
+            const fileMatch = url.match(/drive\.google\.com\/file\/d\/([^/?]+)/);
+            if (fileMatch && fileMatch[1]) {
+                return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+            }
+            const folderMatch = url.match(/drive\.google\.com\/drive\/folders\/([^/?]+)/);
+            if (folderMatch && folderMatch[1]) {
+                return `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#list`;
+            }
+            return url;
+        }
 
         // APP STATE & UI NAVIGATION
         function switchTab(tabId) {
@@ -665,12 +724,27 @@
             }
         }
 
-        function openUploadModal() {
+        function openUploadModal(defaultType = 'video') {
+            document.getElementById('upload-type').value = defaultType;
+            toggleUploadFields();
             document.getElementById('upload-modal').classList.remove('hidden');
         }
 
         function closeUploadModal() {
             document.getElementById('upload-modal').classList.add('hidden');
+        }
+
+        function toggleUploadFields() {
+            const type = document.getElementById('upload-type').value;
+            const urlLabel = document.getElementById('upload-url-label');
+            const urlInput = document.getElementById('upload-url');
+            if (type === 'video') {
+                urlLabel.textContent = "Video Link (YouTube or Google Drive)";
+                urlInput.placeholder = "https://www.youtube.com/watch?v=... or https://drive.google.com/...";
+            } else {
+                urlLabel.textContent = "Google Drive Link / Resource URL";
+                urlInput.placeholder = "https://drive.google.com/file/d/...";
+            }
         }
 
         // FIREBASE AUTH STATE LISTENER
@@ -679,17 +753,23 @@
             const signupCont = document.getElementById('signup-container');
             const loginCont = document.getElementById('login-container');
             const payCont = document.getElementById('payment-instructions-container');
+            const adminElements = document.querySelectorAll('.admin-only');
 
             if (user) {
                 document.getElementById('user-display-name').textContent = user.displayName || user.email.split('@')[0];
+                const isAdmin = (user.email === HOST_EMAIL);
+
+                // Toggle Admin-only UI controls
+                adminElements.forEach(el => {
+                    if (isAdmin) el.classList.remove('hidden');
+                    else el.classList.add('hidden');
+                });
                 
                 const userDocRef = db.collection('users').doc(user.uid);
                 const docSnap = await userDocRef.get();
 
-                let isVerified = false;
-                if (user.email === HOST_EMAIL) {
-                    isVerified = true;
-                } else if (docSnap.exists) {
+                let isVerified = isAdmin;
+                if (!isVerified && docSnap.exists) {
                     isVerified = docSnap.data().verified || false;
                 }
 
@@ -703,6 +783,7 @@
                 }
             } else {
                 document.getElementById('user-display-name').textContent = 'Guest';
+                adminElements.forEach(el => el.classList.add('hidden'));
                 payCont.classList.add('hidden');
                 signupCont.classList.remove('hidden');
                 modal.classList.remove('hidden');
@@ -798,31 +879,48 @@
             }
         });
 
-        // UPLOAD MATERIAL FORM
+        // UPLOAD MATERIAL / VIDEO LECTURE FORM
         document.getElementById('upload-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const title = document.getElementById('upload-title').value;
+            const type = document.getElementById('upload-type').value;
+            const title = document.getElementById('upload-title').value.trim();
             const module = document.getElementById('upload-module').value;
-            const url = document.getElementById('upload-url').value;
+            const desc = document.getElementById('upload-desc').value.trim();
+            const rawUrl = document.getElementById('upload-url').value.trim();
 
             try {
-                await db.collection('materials').add({
-                    title: title,
-                    module: module,
-                    url: url,
-                    uploadedBy: auth.currentUser ? auth.currentUser.email : 'Guest',
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                alert('Material published successfully!');
+                if (type === 'video') {
+                    await db.collection('videos').add({
+                        title: title,
+                        module: module,
+                        description: desc,
+                        rawUrl: rawUrl,
+                        embedUrl: formatEmbedUrl(rawUrl),
+                        uploadedBy: auth.currentUser ? auth.currentUser.email : 'Instructor',
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert('Video lecture published successfully!');
+                    switchTab('video-hub');
+                } else {
+                    await db.collection('materials').add({
+                        title: title,
+                        module: module,
+                        description: desc,
+                        url: rawUrl,
+                        uploadedBy: auth.currentUser ? auth.currentUser.email : 'Instructor',
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert('Study material published successfully!');
+                    switchTab('notes-hub');
+                }
                 closeUploadModal();
                 document.getElementById('upload-form').reset();
-                loadMaterials();
             } catch (err) {
-                alert('Error uploading material: ' + err.message);
+                alert('Error publishing content: ' + err.message);
             }
         });
 
-        // LOAD MATERIALS DYNAMICALLY
+        // LOAD NOTES & MATERIALS DYNAMICALLY
         function loadMaterials() {
             db.collection('materials').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
                 const grid = document.getElementById('materials-grid');
@@ -837,12 +935,12 @@
                             <div>
                                 <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 uppercase">${data.module}</span>
                                 <h4 class="font-bold text-sm mt-2 text-slate-800 dark:text-slate-100">${data.title}</h4>
-                                <p class="text-xs text-slate-500 mt-1">Uploaded by ${data.uploadedBy}</p>
+                                <p class="text-xs text-slate-500 mt-1">${data.description || 'Shared Google Drive resource'}</p>
                             </div>
                             <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs">
-                                <span class="text-slate-400">Google Drive Resource</span>
-                                <a href="${data.url}" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
-                                    <span>Open Drive</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                                <span class="text-slate-400">Google Drive</span>
+                                <a href="${data.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
+                                    <span>Open Resource</span> <i class="fa-solid fa-external-link-alt text-[10px]"></i>
                                 </a>
                             </div>
                         </div>
@@ -853,6 +951,67 @@
                     grid.innerHTML = html;
                     document.getElementById('stat-file-count').textContent = count;
                 }
+            });
+        }
+
+        // LOAD VIDEO LECTURES DYNAMICALLY
+        function playVideoLecture(videoData) {
+            const iframe = document.getElementById('active-video-iframe');
+            const emptyState = document.getElementById('video-empty-state');
+            
+            iframe.src = videoData.embedUrl || formatEmbedUrl(videoData.rawUrl);
+            iframe.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            document.getElementById('active-video-module').textContent = videoData.module || 'Lecture';
+            document.getElementById('active-video-title').textContent = videoData.title;
+            document.getElementById('active-video-desc').textContent = videoData.description || '';
+            document.getElementById('video-player-stage').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function loadVideos() {
+            db.collection('videos').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
+                const grid = document.getElementById('videos-grid');
+                document.getElementById('stat-video-count').textContent = snapshot.size;
+
+                if (snapshot.empty) {
+                    grid.innerHTML = '<div class="col-span-full text-center py-8 text-xs text-slate-400 italic">No video lectures published yet.</div>';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                let firstLoaded = false;
+
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (!firstLoaded) {
+                        playVideoLecture(data);
+                        firstLoaded = true;
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = "bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="bg-slate-900 aspect-video relative flex items-center justify-center text-slate-400 cursor-pointer group">
+                                <i class="fa-solid fa-circle-play text-4xl text-indigo-500 group-hover:scale-110 transition"></i>
+                            </div>
+                            <div class="p-4 space-y-1">
+                                <span class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 uppercase">${data.module}</span>
+                                <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100">${data.title}</h4>
+                                <p class="text-xs text-slate-500 line-clamp-2">${data.description || ''}</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <button type="button" class="watch-btn w-full bg-indigo-50 dark:bg-slate-700 hover:bg-indigo-100 dark:hover:bg-slate-600 text-indigo-600 dark:text-indigo-200 text-xs font-semibold py-2 rounded-lg transition">
+                                ▶ Watch Lecture
+                            </button>
+                        </div>
+                    `;
+                    card.querySelector('.watch-btn').addEventListener('click', () => playVideoLecture(data));
+                    card.querySelector('.aspect-video').addEventListener('click', () => playVideoLecture(data));
+                    grid.appendChild(card);
+                });
             });
         }
 
@@ -894,7 +1053,7 @@
                         <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800 space-y-1">
                             <div class="flex justify-between font-semibold text-[11px] text-indigo-600 dark:text-indigo-400">
                                 <span>${d.author}</span>
-                                <span class="text-[10px] text-slate-400">Just now</span>
+                                <span class="text-[10px] text-slate-400">Posted</span>
                             </div>
                             <p class="text-slate-700 dark:text-slate-300">${d.text}</p>
                         </div>
@@ -945,6 +1104,7 @@
         // Initialize on load
         window.addEventListener('DOMContentLoaded', () => {
             loadMaterials();
+            loadVideos();
             loadDiscussions();
         });
     </script>
