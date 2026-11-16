@@ -197,7 +197,7 @@
         </nav>
 
         <div class="flex items-center space-x-3">
-            <!-- Admin-Only Upload Button (Hidden by default until HOST_EMAIL logs in) -->
+            <!-- Admin-Only Upload Button -->
             <button onclick="openUploadModal()" class="admin-only hidden px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center space-x-2">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
                 <span class="hidden sm:inline">Upload</span>
@@ -438,41 +438,55 @@
             </div>
         </section>
 
-        <!-- SECTION 2: LIVE ONLINE CLASS HUB (JITSI MEET INTEGRATED) -->
+        <!-- SECTION 2: LIVE ONLINE CLASS HUB (DATIVACLASSROOM JITSI INTEGRATED) -->
         <section id="live-class" class="tab-content space-y-4">
             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-4 shadow-sm">
-                <div class="flex items-center space-x-3">
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400">
+                <div class="flex items-start sm:items-center space-x-3">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 mt-0.5 sm:mt-0">
                         <span class="w-2 h-2 mr-1.5 rounded-full bg-red-500 animate-pulse"></span> STREAM LIVE
                     </span>
                     <div>
                         <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">Dativa Live Consultation Room</h2>
-                        <p class="text-[11px] text-slate-500">Click the <strong>Share Screen</strong> icon (<i class="fa-solid fa-desktop"></i>) in the room toolbar below to broadcast your screen to all students.</p>
+                        <p class="text-[11px] text-slate-500">
+                            Room: <strong>Dativaclassroom</strong> • Audio Dial-in: <strong>+1.512.647.1431</strong> (PIN: <strong>3170766433#</strong>) •
+                            <a href="https://meet.jit.si/static/dialInInfo.html?room=dativaclassroom" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">International numbers</a>
+                        </p>
                     </div>
                 </div>
 
                 <div class="flex items-center space-x-2">
                     <button onclick="reloadJitsiRoom()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
-                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Reconnect Room
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Reload Embed
                     </button>
-                    <a id="jitsi-external-link" href="https://meet.jit.si/DativaResearchConsultancyLive2026" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">
-                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Open Fullscreen
+                    <a id="jitsi-external-link" href="https://meet.jit.si/Dativaclassroom" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Open in Jitsi Tab
                     </a>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                <div class="lg:col-span-3 bg-slate-900 rounded-2xl overflow-hidden shadow-2xl relative aspect-video min-h-[420px] border border-slate-800">
-                    <iframe
-                        id="jitsi-classroom-frame"
-                        src=""
-                        allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write"
-                        class="w-full h-full border-0"
-                        title="Dativa Live Classroom">
-                    </iframe>
+                <div class="lg:col-span-3 flex flex-col gap-2">
+                    <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl relative aspect-video min-h-[440px] border border-slate-800">
+                        <iframe
+                            id="jitsi-classroom-frame"
+                            src="https://meet.jit.si/Dativaclassroom"
+                            allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write"
+                            class="w-full h-full border-0"
+                            title="Dativaclassroom Live Session">
+                        </iframe>
+                    </div>
+                    <div class="bg-indigo-50 dark:bg-slate-800/80 border border-indigo-100 dark:border-slate-700 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <span class="text-slate-600 dark:text-slate-300">
+                            <i class="fa-solid fa-circle-info text-indigo-600 mr-1.5"></i>
+                            <strong>Instructor Tip:</strong> If Jitsi asks the moderator to log in first, click <strong>Open in Jitsi Tab</strong> to sign in and share your screen.
+                        </span>
+                        <a href="https://meet.jit.si/Dativaclassroom" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+                            Join Direct Link →
+                        </a>
+                    </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex flex-col h-[420px] lg:h-auto shadow-sm">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex flex-col h-[440px] lg:h-auto shadow-sm">
                     <div class="pb-2 border-b border-slate-100 dark:border-slate-700 font-bold text-xs flex justify-between items-center text-slate-700 dark:text-slate-300">
                         <span>Live Class Chat</span>
                         <span class="text-[10px] text-emerald-500"><i class="fa-solid fa-circle text-[8px]"></i> Real-Time Sync</span>
@@ -663,7 +677,7 @@
         const db = firebase.firestore();
 
         const HOST_EMAIL = "okellobonifacer@gmail.com";
-        const JITSI_ROOM_NAME = "DativaResearchConsultancyLive2026";
+        const JITSI_ROOM_URL = "https://meet.jit.si/Dativaclassroom";
         let currentUserProfile = { name: "Student", email: "", isAdmin: false };
 
         // HELPER: Convert YouTube & Google Drive links into clean embed URLs
@@ -684,13 +698,13 @@
             return url;
         }
 
-        // HELPER: Build & Load Jitsi Meet Room with Auto-Filled User Name
+        // HELPER: Build & Load Jitsi Meet Room (Dativaclassroom) with Auto-Filled User Name
         function buildJitsiUrl(displayName, email, isAdmin) {
             const label = isAdmin ? `${displayName} (Instructor)` : displayName;
             const encodedName = encodeURIComponent(`"${label}"`);
             const encodedEmail = email ? `&userInfo.email=${encodeURIComponent(`"${email}"`)}` : "";
             const audioMuted = isAdmin ? "false" : "true";
-            return `https://meet.jit.si/${JITSI_ROOM_NAME}#config.prejoinPageEnabled=false&config.startWithAudioMuted=${audioMuted}&config.startWithVideoMuted=true&userInfo.displayName=${encodedName}${encodedEmail}`;
+            return `${JITSI_ROOM_URL}#config.prejoinPageEnabled=false&config.startWithAudioMuted=${audioMuted}&config.startWithVideoMuted=true&userInfo.displayName=${encodedName}${encodedEmail}`;
         }
 
         function loadJitsiClassroom(displayName, email, isAdmin) {
@@ -701,7 +715,7 @@
                 frame.src = url;
             }
             if (extLink) {
-                extLink.href = url;
+                extLink.href = JITSI_ROOM_URL;
             }
         }
 
@@ -854,7 +868,7 @@
                     welcomeTitle.textContent = 'Welcome to Dativa Research Consultancy!';
                 }
                 const frame = document.getElementById('jitsi-classroom-frame');
-                if (frame) frame.src = '';
+                if (frame) frame.src = JITSI_ROOM_URL;
                 adminElements.forEach(el => el.classList.add('hidden'));
                 payCont.classList.add('hidden');
                 signupCont.classList.remove('hidden');
