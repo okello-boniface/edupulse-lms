@@ -438,47 +438,44 @@
             </div>
         </section>
 
-        <!-- SECTION 2: LIVE ONLINE CLASS HUB -->
+        <!-- SECTION 2: LIVE ONLINE CLASS HUB (JITSI MEET INTEGRATED) -->
         <section id="live-class" class="tab-content space-y-4">
             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-4 shadow-sm">
                 <div class="flex items-center space-x-3">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400">
                         <span class="w-2 h-2 mr-1.5 rounded-full bg-red-500 animate-pulse"></span> STREAM LIVE
                     </span>
-                    <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">Dativa Live Consultation Room</h2>
+                    <div>
+                        <h2 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">Dativa Live Consultation Room</h2>
+                        <p class="text-[11px] text-slate-500">Click the <strong>Share Screen</strong> icon (<i class="fa-solid fa-desktop"></i>) in the room toolbar below to broadcast your screen to all students.</p>
+                    </div>
                 </div>
 
                 <div class="flex items-center space-x-2">
-                    <button id="toggle-mic" onclick="toggleMic()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
-                        <i class="fa-solid fa-microphone mr-1"></i> <span id="mic-text">Mute Mic</span>
+                    <button onclick="reloadJitsiRoom()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Reconnect Room
                     </button>
-                    <button id="toggle-cam" onclick="toggleCam()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
-                        <i class="fa-solid fa-video mr-1"></i> <span id="cam-text">Stop Cam</span>
-                    </button>
-                    <button onclick="shareScreen()" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">
-                        <i class="fa-solid fa-desktop mr-1"></i> Share Screen
-                    </button>
+                    <a id="jitsi-external-link" href="https://meet.jit.si/DativaResearchConsultancyLive2026" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Open Fullscreen
+                    </a>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                <div class="lg:col-span-3 bg-slate-900 rounded-2xl overflow-hidden shadow-2xl relative aspect-video flex items-center justify-center border border-slate-800">
-                    <video id="live-video-preview" autoplay muted playsinline class="w-full h-full object-cover"></video>
-                    <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 text-slate-400 p-6 text-center">
-                        <i class="fa-solid fa-video-slash text-4xl mb-2 text-slate-600"></i>
-                        <p class="text-sm font-medium">Camera preview is off or connecting...</p>
-                        <button onclick="startCamera()" class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-500 transition">Start Camera & Mic</button>
-                    </div>
-                    <div class="absolute bottom-4 left-4 bg-slate-950/70 backdrop-blur px-3 py-1.5 rounded-lg text-white text-xs font-medium flex items-center space-x-2 border border-white/10">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                        <span>Instructor Live Stream</span>
-                    </div>
+                <div class="lg:col-span-3 bg-slate-900 rounded-2xl overflow-hidden shadow-2xl relative aspect-video min-h-[420px] border border-slate-800">
+                    <iframe
+                        id="jitsi-classroom-frame"
+                        src=""
+                        allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write"
+                        class="w-full h-full border-0"
+                        title="Dativa Live Classroom">
+                    </iframe>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex flex-col h-[400px] lg:h-auto shadow-sm">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex flex-col h-[420px] lg:h-auto shadow-sm">
                     <div class="pb-2 border-b border-slate-100 dark:border-slate-700 font-bold text-xs flex justify-between items-center text-slate-700 dark:text-slate-300">
                         <span>Live Class Chat</span>
-                        <span class="text-[10px] text-emerald-500"><i class="fa-solid fa-circle text-[8px]"></i> Connected</span>
+                        <span class="text-[10px] text-emerald-500"><i class="fa-solid fa-circle text-[8px]"></i> Real-Time Sync</span>
                     </div>
                     <div id="live-chat-messages" class="flex-grow overflow-y-auto my-2 space-y-2 pr-1 text-xs">
                         <div class="p-2 bg-slate-50 dark:bg-slate-900 rounded-lg text-slate-500 italic">Welcome to the live session! Ask questions here.</div>
@@ -505,7 +502,7 @@
                         <span>Open Drive Folder</span>
                         <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </a>
-                    <button onclick="openUploadModal()" class="admin-only hidden px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
+                    <button onclick="openUploadModal('note')" class="admin-only hidden px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
                         <i class="fa-solid fa-cloud-arrow-up"></i>
                         <span>Add Link</span>
                     </button>
@@ -666,6 +663,8 @@
         const db = firebase.firestore();
 
         const HOST_EMAIL = "okellobonifacer@gmail.com";
+        const JITSI_ROOM_NAME = "DativaResearchConsultancyLive2026";
+        let currentUserProfile = { name: "Student", email: "", isAdmin: false };
 
         // HELPER: Convert YouTube & Google Drive links into clean embed URLs
         function formatEmbedUrl(url) {
@@ -683,6 +682,37 @@
                 return `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#list`;
             }
             return url;
+        }
+
+        // HELPER: Build & Load Jitsi Meet Room with Auto-Filled User Name
+        function buildJitsiUrl(displayName, email, isAdmin) {
+            const label = isAdmin ? `${displayName} (Instructor)` : displayName;
+            const encodedName = encodeURIComponent(`"${label}"`);
+            const encodedEmail = email ? `&userInfo.email=${encodeURIComponent(`"${email}"`)}` : "";
+            const audioMuted = isAdmin ? "false" : "true";
+            return `https://meet.jit.si/${JITSI_ROOM_NAME}#config.prejoinPageEnabled=false&config.startWithAudioMuted=${audioMuted}&config.startWithVideoMuted=true&userInfo.displayName=${encodedName}${encodedEmail}`;
+        }
+
+        function loadJitsiClassroom(displayName, email, isAdmin) {
+            const frame = document.getElementById('jitsi-classroom-frame');
+            const extLink = document.getElementById('jitsi-external-link');
+            const url = buildJitsiUrl(displayName, email, isAdmin);
+            if (frame && frame.src !== url) {
+                frame.src = url;
+            }
+            if (extLink) {
+                extLink.href = url;
+            }
+        }
+
+        function reloadJitsiRoom() {
+            const frame = document.getElementById('jitsi-classroom-frame');
+            if (!frame) return;
+            frame.src = buildJitsiUrl(
+                currentUserProfile.name,
+                currentUserProfile.email,
+                currentUserProfile.isAdmin
+            );
         }
 
         // APP STATE & UI NAVIGATION
@@ -782,7 +812,6 @@
             if (user) {
                 const isAdmin = (user.email === HOST_EMAIL);
 
-                // Toggle Admin-only UI controls
                 adminElements.forEach(el => {
                     if (isAdmin) el.classList.remove('hidden');
                     else el.classList.add('hidden');
@@ -793,9 +822,14 @@
                 const userData = docSnap.exists ? docSnap.data() : {};
 
                 const displayName = userData.name || user.displayName || user.email.split('@')[0];
-                document.getElementById('user-display-name').textContent = displayName;
+                currentUserProfile = { name: displayName, email: user.email, isAdmin };
 
-                // Update dashboard banner greeting with time-of-day + resolved name
+                document.getElementById('user-display-name').textContent = displayName;
+                const postAuthorInput = document.getElementById('post-author');
+                if (postAuthorInput && !postAuthorInput.value) {
+                    postAuthorInput.value = displayName;
+                }
+
                 updateDashboardGreeting(user, userData);
 
                 let isVerified = isAdmin;
@@ -805,6 +839,7 @@
 
                 if (isVerified) {
                     modal.classList.add('hidden');
+                    loadJitsiClassroom(displayName, user.email, isAdmin);
                 } else {
                     signupCont.classList.add('hidden');
                     loginCont.classList.add('hidden');
@@ -812,11 +847,14 @@
                     modal.classList.remove('hidden');
                 }
             } else {
+                currentUserProfile = { name: "Guest", email: "", isAdmin: false };
                 document.getElementById('user-display-name').textContent = 'Guest';
                 const welcomeTitle = document.getElementById('welcome-title');
                 if (welcomeTitle) {
                     welcomeTitle.textContent = 'Welcome to Dativa Research Consultancy!';
                 }
+                const frame = document.getElementById('jitsi-classroom-frame');
+                if (frame) frame.src = '';
                 adminElements.forEach(el => el.classList.add('hidden'));
                 payCont.classList.add('hidden');
                 signupCont.classList.remove('hidden');
@@ -847,6 +885,7 @@
 
                 if (isHost) {
                     document.getElementById('auth-paywall-modal').classList.add('hidden');
+                    loadJitsiClassroom(name, email, true);
                 } else {
                     document.getElementById('signup-container').classList.add('hidden');
                     document.getElementById('payment-instructions-container').classList.remove('hidden');
@@ -1069,7 +1108,6 @@
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
                 document.getElementById('post-text').value = '';
-                loadDiscussions();
             } catch (err) {
                 console.error(err);
             }
@@ -1100,41 +1138,54 @@
             });
         }
 
-        // CAMERA & MIC MOCK CONTROLS
-        let localStream = null;
-        async function startCamera() {
+        // LIVE CLASS REAL-TIME CHAT (FIRESTORE)
+        document.getElementById('live-chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('live-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
             try {
-                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                const videoEl = document.getElementById('live-video-preview');
-                videoEl.srcObject = localStream;
-                document.getElementById('video-placeholder').classList.add('hidden');
+                await db.collection('live_chat').add({
+                    author: currentUserProfile.name || 'Student',
+                    isAdmin: currentUserProfile.isAdmin,
+                    text: text,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                input.value = '';
             } catch (err) {
-                alert('Camera permission denied or not available.');
+                console.error('Live chat error:', err);
             }
-        }
+        });
 
-        function toggleMic() {
-            if (!localStream) return;
-            const audioTrack = localStream.getAudioTracks()[0];
-            audioTrack.enabled = !audioTrack.enabled;
-            document.getElementById('mic-text').textContent = audioTrack.enabled ? 'Mute Mic' : 'Unmute Mic';
-        }
+        function loadLiveChat() {
+            db.collection('live_chat').orderBy('createdAt', 'asc').limitToLast(50).onSnapshot((snap) => {
+                const container = document.getElementById('live-chat-messages');
+                if (!container) return;
 
-        function toggleCam() {
-            if (!localStream) return;
-            const videoTrack = localStream.getVideoTracks()[0];
-            videoTrack.enabled = !videoTrack.enabled;
-            document.getElementById('cam-text').textContent = videoTrack.enabled ? 'Stop Cam' : 'Start Cam';
-        }
+                if (snap.empty) {
+                    container.innerHTML = '<div class="p-2 bg-slate-50 dark:bg-slate-900 rounded-lg text-slate-500 italic">Welcome to the live session! Ask questions here.</div>';
+                    return;
+                }
 
-        async function shareScreen() {
-            try {
-                const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                document.getElementById('live-video-preview').srcObject = screenStream;
-                document.getElementById('video-placeholder').classList.add('hidden');
-            } catch (err) {
-                console.log('Screen share cancelled');
-            }
+                let html = '';
+                snap.forEach((doc) => {
+                    const msg = doc.data();
+                    const badge = msg.isAdmin
+                        ? '<span class="ml-1 px-1.5 py-0.2 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded text-[9px] font-bold">Instructor</span>'
+                        : '';
+                    html += `
+                        <div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-900/70 border border-slate-200/50 dark:border-slate-800">
+                            <div class="font-semibold text-[11px] text-indigo-600 dark:text-indigo-400 flex items-center">
+                                <span>${msg.author}</span>${badge}
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300 mt-0.5">${msg.text}</p>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                container.scrollTop = container.scrollHeight;
+            });
         }
 
         // Initialize on load
@@ -1142,6 +1193,7 @@
             loadMaterials();
             loadVideos();
             loadDiscussions();
+            loadLiveChat();
         });
     </script>
 </body>
