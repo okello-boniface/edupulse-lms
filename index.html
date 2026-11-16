@@ -747,6 +747,30 @@
             }
         }
 
+        // TIME-BASED DASHBOARD GREETING HELPER
+        function updateDashboardGreeting(user, profileData = {}) {
+            const welcomeTitle = document.getElementById('welcome-title');
+            const welcomeSubline = document.querySelector('.welcome-subline');
+            if (!welcomeTitle || !user) return;
+
+            const hour = new Date().getHours();
+            const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+            const resolvedName =
+                profileData.name ||
+                user.displayName ||
+                (user.email ? user.email.split('@')[0] : 'Student');
+
+            welcomeTitle.textContent = `${greeting}, ${resolvedName}!`;
+
+            if (welcomeSubline) {
+                if (user.email === HOST_EMAIL) {
+                    welcomeSubline.textContent = 'Instructor workspace active • Manage live sessions, lecture videos, and course notes.';
+                } else {
+                    welcomeSubline.textContent = 'Subscription active • Access unlocked for advanced data analytics modules and live research sessions.';
+                }
+            }
+        }
+
         // FIREBASE AUTH STATE LISTENER
         auth.onAuthStateChanged(async (user) => {
             const modal = document.getElementById('auth-paywall-modal');
@@ -756,7 +780,6 @@
             const adminElements = document.querySelectorAll('.admin-only');
 
             if (user) {
-                document.getElementById('user-display-name').textContent = user.displayName || user.email.split('@')[0];
                 const isAdmin = (user.email === HOST_EMAIL);
 
                 // Toggle Admin-only UI controls
@@ -767,10 +790,17 @@
                 
                 const userDocRef = db.collection('users').doc(user.uid);
                 const docSnap = await userDocRef.get();
+                const userData = docSnap.exists ? docSnap.data() : {};
+
+                const displayName = userData.name || user.displayName || user.email.split('@')[0];
+                document.getElementById('user-display-name').textContent = displayName;
+
+                // Update dashboard banner greeting with time-of-day + resolved name
+                updateDashboardGreeting(user, userData);
 
                 let isVerified = isAdmin;
                 if (!isVerified && docSnap.exists) {
-                    isVerified = docSnap.data().verified || false;
+                    isVerified = userData.verified || false;
                 }
 
                 if (isVerified) {
@@ -783,6 +813,10 @@
                 }
             } else {
                 document.getElementById('user-display-name').textContent = 'Guest';
+                const welcomeTitle = document.getElementById('welcome-title');
+                if (welcomeTitle) {
+                    welcomeTitle.textContent = 'Welcome to Dativa Research Consultancy!';
+                }
                 adminElements.forEach(el => el.classList.add('hidden'));
                 payCont.classList.add('hidden');
                 signupCont.classList.remove('hidden');
@@ -808,6 +842,8 @@
                     verified: isHost,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
+
+                updateDashboardGreeting(cred.user, { name });
 
                 if (isHost) {
                     document.getElementById('auth-paywall-modal').classList.add('hidden');
